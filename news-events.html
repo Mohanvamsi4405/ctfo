@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Events - Cheyutha Foundation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* Global CSS variables */
+        :root {
+            --header-height: 100px; /* Default height, will be set by JS */
+        }
+
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f1e7;
+            overflow-x: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #b8ebe1;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* Container for the logo and name */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            height: 70px;
+            max-width: 100%;
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+            line-height: 1.1;
+        }
+        
+        /* Header Desktop Navigation */
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        /* Highlight the active link for the News & Events page */
+        nav ul li a[href="news-events.html"] {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        /* New: Section Navigation Buttons */
+        .section-nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .section-nav-buttons a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #003366, #2c3e50);
+            border-radius: 15px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .section-nav-buttons a:hover,
+        .section-nav-buttons a.active {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .donate-button {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+        
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+
+        /* Mobile Header Actions */
+        .header-mobile-actions {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        /* Mobile menu container that is hidden by default */
+        .mobile-menu-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: #b8ebe1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            z-index: 150;
+            top: var(--header-height);
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+
+        /* Main Content */
+        main {
+            padding: 1rem 0;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        
+        .full-width-container {
+            width: 100%;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                transform: scale(0.95) translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        /* New Gallery Animation */
+        @keyframes continuous-slide {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Section and Card styling */
+        .section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-section-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            color: #003366; /* New color from our-work.html */
+            text-align: center;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.2);
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .stat-item:nth-child(1) { background: linear-gradient(135deg, #d2e8ff, #ffdddd); }
+        .stat-item:nth-child(2) { background: linear-gradient(135deg, #e8eafb, #dcd6fa, #fdeaea); }
+        .stat-item:nth-child(3) { background: linear-gradient(135deg, #e0f7fa, #fffde4, #fddbff); }
+        .stat-item:nth-child(4) { background: linear-gradient(135deg, #fdf6e3, #e5f5ec, #ffe0ec); }
+        
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #e67e22;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        /* === SLIDER STYLES === */
+        .cards-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(350px, 1fr);
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 1rem 0;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .gallery-container {
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 1rem 0;
+            width: 100%;
+        }
+
+        .continuous-scroll-images {
+            display: inline-block;
+            white-space: nowrap;
+            animation: continuous-slide 80s linear infinite; /* Adjust time for speed */
+        }
+        
+        .continuous-scroll-images:hover {
+            animation-play-state: paused;
+        }
+        
+        .continuous-scroll-images img {
+            width: 350px; /* Adjust size as needed */
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 0 1rem;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .continuous-scroll-images img:hover {
+            transform: scale(1.05);
+        }
+
+        .cards-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 50;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-button:hover {
+            background-color: #e67e22;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .slider-button-left {
+            left: 0rem;
+        }
+        
+        .slider-button-right {
+            right: 0rem;
+        }
+
+        .card {
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 1rem 1.5rem 1.5rem;
+            text-align: left;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-profile-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            object-position: center top;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: #476d88;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #587082;
+            line-height: 1.56;
+            margin-bottom: 1rem;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .card-date {
+            font-weight: 600;
+            color: #e67e22;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .card-author {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .upcoming-tag {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .featured-tag {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .completed-tag {
+            background: #d1e7dd;
+            color: #3d405b;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .read-more-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            align-self: flex-start;
+            border: none;
+        }
+        .read-more-button:hover {
+            background: linear-gradient(45deg, #d35400, #e67e22);
+            color: #fff;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+        
+        .footer-section .footer-links a {
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+        
+        /* Modal and Modal Content styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow: auto;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The close button is now positioned fixed to the viewport */
+        .close-button {
+            position: fixed;
+            top: 20px;
+            right: 40px;
+            color: #fff; /* Changed color to be visible on the dark overlay */
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.2s;
+            z-index: 9999; /* Increased z-index to ensure it's always on top, even above other overlays */
+            background-color: rgba(0, 0, 0, 0.5); /* Added a semi-transparent black background for better visibility */
+            border-radius: 50%; /* Made the button round */
+            width: 50px; /* Defined a fixed width */
+            height: 50px; /* Defined a fixed height to ensure a perfect circle */
+            display: flex; /* Used flexbox to center the 'x' icon */
+            align-items: center; /* Vertically center the 'x' icon */
+            justify-content: center; /* Horizontally center the 'x' icon */
+            line-height: 1; /* Ensured consistent vertical alignment for the 'x' */
+        }
+        
+        .close-button:hover, .close-button:focus {
+            color: #e67e22;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover for clearer interaction */
+            text-decoration: none;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+
+        /* Updated Modal Content Styling */
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            animation: fadeInScale 0.5s ease-out forwards;
+            overflow-y: auto;
+        }
+        
+        /* Updated Modal Body Styling */
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .modal-media-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .modal-media-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .modal-media-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .modal-media-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-media-container.fullscreen-active {
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-media-container img, .modal-media-container iframe {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+        }
+
+        .modal-video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .modal-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+        }
+        
+        .modal-text-content {
+            width: 100%;
+            padding: 1rem;
+            max-height: 50vh;
+            overflow-y: auto;
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: left;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .modal-text-content h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-text-content .card-date {
+            margin-bottom: 1.5rem;
+        }
+        
+        .no-scroll {
+            overflow: hidden;
+        }
+        
+        
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 50;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-button:hover {
+            background-color: #e67e22;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Adjust slider buttons to be outside card area on mobile */
+        @media (max-width: 768px) {
+            .cards-wrapper {
+                padding: 0 0.5rem;
+            }
+            .slider-button-left {
+                left: 0;
+            }
+            .slider-button-right {
+                right: 0;
+            }
+            .card {
+                margin: 0 0.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .header-brand {
+                width: auto;
+                justify-content: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0;
+            }
+            .logo-image {
+                height: 50px;
+            }
+            .header-name h1 {
+                font-size: 1.5rem;
+            }
+            .header-desktop-actions {
+                display: none; /* Hide desktop nav on mobile */
+            }
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .header-mobile-actions .donate-button {
+                display: block;
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+                margin-left: 0;
+                white-space: normal;
+            }
+            .header-desktop-actions .donate-button {
+                display: none;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                text-align: center;
+            }
+            nav ul li {
+                margin: 0;
+                padding: 0;
+            }
+            nav ul li a {
+                display: inline-block;
+                padding: 15px 20px;
+                width: auto;
+                border-bottom: 3px solid transparent;
+            }
+            nav ul li a:hover {
+                border-bottom: none;
+            }
+            nav ul li a[href="news-events.html"] {
+                color: #e67e22;
+                border-bottom: 3px solid #e67e22;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            .footer-section ul {
+                list-style: none;
+            }
+            .footer-section .footer-links a {
+                display: block;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-container {
+                display: none;
+            }
+        }
+        
+        /* New Gallery Modal Styles */
+        #galleryModal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #gallery-image-container {
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #gallery-image-container img {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-brand">
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/70x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Annual Reports</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Annual Reports</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>News & Events</h1>
+                <p>Stay updated with the latest from Cheyutha Foundation for Organ Transplants - sharing stories of hope, upcoming events, and media coverage of our mission to support kidney patients.</p>
+            </div>
+
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <span class="stat-number">250+</span>
+                    <span class="stat-label">Lives Impacted</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">45</span>
+                    <span class="stat-label">Success Stories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">₹75L+</span>
+                    <span class="stat-label">Support Provided</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">9+</span>
+                    <span class="stat-label">Years of Service</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="full-width-container">
+            <section class="section">
+                <div class="card-section-header">
+                    <h2><i class="fas fa-images card-icon"></i> Our Gallery</h2>
+                </div>
+                <div class="gallery-container">
+                    <div class="continuous-scroll-images">
+                        <!-- Duplicate images to create a seamless loop -->
+                        <img src="Gallery/1.jpg" alt="Gallery image 1">
+                        <img src="Gallery/2.jpg" alt="Gallery image 2">
+                        <img src="Gallery/3.jpg" alt="Gallery image 3">
+                        <img src="Gallery/4.jpg" alt="Gallery image 4">
+                        <img src="Gallery/5.jpg" alt="Gallery image 5">
+                        <img src="Gallery/6.jpg" alt="Gallery image 6">
+                        <img src="Gallery/7.jpg" alt="Gallery image 7">
+                        <img src="Gallery/8.jpg" alt="Gallery image 8">
+                        <img src="Gallery/9.jpg" alt="Gallery image 9">
+                        <img src="Gallery/10.jpg" alt="Gallery image 10">
+                        <img src="Gallery/11.jpg" alt="Gallery image 11">
+                        <img src="Gallery/12.jpg" alt="Gallery image 12">
+                        <img src="Gallery/13.jpg" alt="Gallery image 13">
+                        <img src="Gallery/14.jpg" alt="Gallery image 14">
+                        <img src="Gallery/15.jpg" alt="Gallery image 15">
+                        <img src="Gallery/16.jpg" alt="Gallery image 16">
+                        <img src="Gallery/17.jpg" alt="Gallery image 17">
+                        <img src="Gallery/18.jpg" alt="Gallery image 18">
+                        <img src="Gallery/19.jpg" alt="Gallery image 19">
+                        <img src="Gallery/20.jpg" alt="Gallery image 20">
+                        <!-- The first 20 images repeated to create a smooth loop -->
+                        <img src="Gallery/1.jpg" alt="Gallery image 1">
+                        <img src="Gallery/2.jpg" alt="Gallery image 2">
+                        <img src="Gallery/3.jpg" alt="Gallery image 3">
+                        <img src="Gallery/4.jpg" alt="Gallery image 4">
+                        <img src="Gallery/5.jpg" alt="Gallery image 5">
+                        <img src="Gallery/6.jpg" alt="Gallery image 6">
+                        <img src="Gallery/7.jpg" alt="Gallery image 7">
+                        <img src="Gallery/8.jpg" alt="Gallery image 8">
+                        <img src="Gallery/9.jpg" alt="Gallery image 9">
+                        <img src="Gallery/10.jpg" alt="Gallery image 10">
+                        <img src="Gallery/11.jpg" alt="Gallery image 11">
+                        <img src="Gallery/12.jpg" alt="Gallery image 12">
+                        <img src="Gallery/13.jpg" alt="Gallery image 13">
+                        <img src="Gallery/14.jpg" alt="Gallery image 14">
+                        <img src="Gallery/15.jpg" alt="Gallery image 15">
+                        <img src="Gallery/16.jpg" alt="Gallery image 16">
+                        <img src="Gallery/17.jpg" alt="Gallery image 17">
+                        <img src="Gallery/18.jpg" alt="Gallery image 18">
+                        <img src="Gallery/19.jpg" alt="Gallery image 19">
+                        <img src="Gallery/20.jpg" alt="Gallery image 20">
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="card-section-header">
+                    <h2><i class="fas fa-book-open card-icon"></i> Our Stories & Updates</h2>
+                </div>
+                <div class="cards-wrapper">
+                    <button class="slider-button slider-button-left" onclick="slideCards('stories-container', -1)"><i class="fas fa-chevron-left"></i></button>
+                    <div class="cards-container" id="stories-container">
+                    
+                        
+                        <div class="card blog-card" data-card-id="story-4">
+                            <img src="news-events/Kidney Transplant Recipients.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Kidney+Transplant+Recipients';" alt="Kidney Transplant Recipients" class="card-profile-image">
+                            <div>
+                                <div class="card-date">August 10, 2024</div>
+                                <h3 class="card-title">Meeting with Kidney Transplant Recipients</h3>
+                                <p class="card-author">By Founder and Co-Founder</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">We conducted several meetings with kidney transplant recipients across various locations and hospitals in Hyderabad to discuss and address their issues.</p>
+                            <a href="#" class="read-more-button">Read the Recap</a>
+                        </div>
+
+                        <div class="card press-card" data-card-id="story-1">
+                            <img src="news-events/ESI Event 1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Kidney+Health+Awareness';" alt="Kidney Health Awareness Event at ESI" class="card-profile-image">
+                            <div>
+                                <div class="card-date">January 1, 2024</div>
+                                <h3 class="card-title">Kidney Health Awareness Event at ESI</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <p class="card-author">By CFOT Team</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-full-text" style="display:none;">We held a successful event at ESI, bringing together patients and leading doctors to raise awareness about kidney health. A panel of nephrologists, a transplant coordinator, and a dietician provided valuable insights on kidney diseases, transplants, and organ donation to 173 kidney transplant recipients and 32 dialysis patients. The event also featured the launch of the "Kidney Warriors" book and the "Cheyutha" website, along with an awards ceremony to honor the medical professionals and participants.</p>
+                            <a href="#" class="read-more-button">Read Article</a>
+                        </div>
+
+                        <div class="card blog-card" data-card-id="story-2">
+                            <img src="news-events/medicine supply0.jpg.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Medical+Camp';" alt="Shashidhar Reddy's Story" class="card-profile-image">
+                            <div>
+                                <div class="card-date">June 15, 2024</div>
+                                <h3 class="card-title">Successful Brochure Launch and Medical Camp</h3>
+                                <p class="card-author">By CFOT Team</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">Our new brochure was successfully launched at BHEL Grounds in Hyderabad, in the presence of CFOT members. As part of our community outreach, we also distributed essential medicines to 25 needy patients during the event.</p>
+                            <a href="#" class="read-more-button">Learn More</a>
+                        </div>
+
+                        <div class="card press-card" data-card-id="story-3" >
+                            <img src="news-events/Mumbai Event1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Board+Meeting';" alt="Collaborative Board Meeting in Mumbai" class="card-profile-image">
+                            <div>
+                                <div class="card-date">January 14, 2018</div>
+                                <h3 class="card-title">Collaborative Board Meeting in Mumbai</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <span>By Founder Bhagavan Reddy</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-full-text" style="display:none;">A productive board meeting took place on January 14, 2018, in Mumbai. The meeting brought together the founders of the Kidney Warriors Foundation, the All India Organisation Working for Chronic Kidney Patients, and the Cheyutha Foundation for Organ Transplants. Discussions centered on addressing critical issues faced by kidney patients and planning to submit memorandums to health ministries to advocate for their needs. Key participants included Ms. Vasundhara Raghavan, CEO, Founder, and author, and a kidney donor.</p>
+                            <a href="#" class="read-more-button">Read Article</a>
+                        </div>
+
+                        <div class="card blog-card" data-card-id="story-5">
+                            <img src="news-events/Supporting Dialysis Patients.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Supporting+Dialysis+Patients';" alt="Mr. B. Swamy's Story" class="card-profile-image">
+                            <div>
+                                <div class="card-date">October 1, 2024</div>
+                                <h3 class="card-title">Supporting Dialysis Patients with Essential Supplies</h3>
+                                <p class="card-author">By Bhagawan Reddy</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">To help address the high costs of post-dialysis care, we distributed essential supplies, including fistula belts for blood flow control and injections for blood improvement. Thanks to the generous support of our founders' family members, we were able to provide these critical items to over 500 patients. Distributions were held at NIMS, Gandhi, Star, and Care Hospitals, as well as at government dialysis centers in various districts. Each patient received supplies worth ₹500.</p>
+                            <a href="#" class="read-more-button">Read More</a>
+                        </div>
+
+                        <div class="card blog-card" data-card-id="story-6">
+                            <img src="news-events/Mohammad Iftekharuddin.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Mohammad+Iftekharuddin';" alt="Mohammad Iftekharuddin's Story" class="card-profile-image">
+                            <div>
+                                <div class="card-date">July 20, 2024</div>
+                                <h3 class="card-title">From Unemployment to New Beginnings</h3>
+                                <p class="card-author">By Mohammad Iftekharuddin</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">Mohammad Iftekharuddin, a transplant recipient, found a job through the foundation's network after struggling with unemployment.</p>
+                            <a href="#" class="read-more-button">View Partnership Details</a>
+                        </div>
+                    </div>
+                    <button class="slider-button slider-button-left" onclick="slideCards('stories-container', -1)"><i class="fas fa-chevron-left"></i></button>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="card-section-header">
+                    <h2><i class="fas fa-calendar-alt card-icon"></i> Past Events</h2>
+                </div>
+                <div class="cards-wrapper">
+                    <button class="slider-button slider-button-left" onclick="slideCards('events-container', -1)"><i class="fas fa-chevron-left"></i></button>
+                    <div class="cards-container" id="events-container">
+                        <!-- Card with 2 images -->
+                        <div class="card event-card" data-card-id="event-1" data-image-2-url="news-events/Logo launch2.png">
+                            <img src="news-events/Logo launch1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=CFOT+Logo+Launch';" alt="CFOT Logo Launch" class="card-profile-image">
+                            <div>
+                                <div class="completed-tag">Completed</div>
+                                <div class="card-date">February 23, 2018</div>
+                                <h3 class="card-title">CFOT Logo Launch</h3>
+                                <div class="card-meta">
+                                    <div class="card-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Taj Deccan, Hyderabad</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">The CFOT logo was launched at Taj Deccan in Hyderabad on February 23, 2018. The foundation also held initial meetings with patients and a board meeting with the Kidney Warriors Foundation to discuss patient issues.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">The CFOT logo was launched at Taj Deccan in Hyderabad on February 23, 2018. The foundation also held initial meetings with patients and a board meeting with the Kidney Warriors Foundation to discuss patient issues.</p>
+                            <a href="#" class="read-more-button">Read Recap</a>
+                        </div>
+                        
+                        <div class="card event-card" data-card-id="event-2">
+                            <img src="news-events/Star hospitals.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Kidney+Talk';" alt="Kidney Talk Event" class="card-profile-image">
+                            <div>
+                                <div class="completed-tag">Completed</div>
+                                <div class="card-date">March 15, 2019</div>
+                                <h3 class="card-title">Kidney Talk at Star Hospitals</h3>
+                                <div class="card-meta">
+                                    <div class="card-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Star Hospitals, Hyderabad</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">The foundation hosted a "Kidney Talk" event at Star Hospitals and another event at ESI, Hyderabad, where doctors educated patients and a book, "Kidney Warriors," was launched.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">The foundation hosted a "Kidney Talk" event at Star Hospitals and another event at ESI, Hyderabad, where doctors educated patients and a book, "Kidney Warriors," was launched.</p>
+                            <a href="#" class="read-more-button">Find Out More</a>
+                        </div>
+
+                        <!-- Card with 2 images -->
+                        <div class="card event-card" data-card-id="event-3" data-image-2-url="news-events/Kidney day 2.png">
+                            <img src="news-events/Kidney day 1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=World+Kidney+Day';" alt="World Kidney Day 2021" class="card-profile-image">
+                            <div>
+                                <div class="completed-tag">Completed</div>
+                                <div class="card-date">March 11, 2021</div>
+                                <h3 class="card-title">World Kidney Day Program</h3>
+                                <div class="card-meta">
+                                    <div class="card-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Care Hospitals, Hyderabad</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">They participated in a "Water Glass Challenge" for World Kidney Day 2020 and a program for World Kidney Day 2021 at Care Hospitals.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">They participated in a "Water Glass Challenge" for World Kidney Day 2020 and a program for World Kidney Day 2021 at Care Hospitals. They held virtual health checkups during the COVID-19 pandemic in partnership with other organizations.</p>
+                            <a href="#" class="read-more-button">Register Now</a>
+                        </div>
+
+                        <div class="card event-card" data-card-id="event-4">
+                            <img src="news-events/ksr summit.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Deccan+CSR+Summit';" alt="Deccan CSR Summit" class="card-profile-image">
+                            <div>
+                                <div class="completed-tag">Completed</div>
+                                <div class="card-date">April 20, 2019</div>
+                                <h3 class="card-title">Participation in Deccan CSR Summit</h3>
+                                <div class="card-meta">
+                                    <div class="card-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Hyderabad</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">CFOT took part in the Deccan CSR Summit to learn from other NGOs. They also participated in the "Aashayein-2019" program by Nephroplus to learn about challenges faced by dialysis patients.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">CFOT took part in the Deccan CSR Summit to learn from other NGOs. They also participated in the "Aashayein-2019" program by Nephroplus to learn about challenges faced by dialysis patients.</p>
+                            <a href="#" class="read-more-button">Read Recap</a>
+                        </div>
+                    </div>
+                    <button class="slider-button slider-button-right" onclick="slideCards('events-container', 1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="card-section-header">
+                    <h2><i class="fas fa-newspaper card-icon"></i> In the Media </h2>
+                </div>
+                <div class="cards-wrapper">
+                    <button class="slider-button slider-button-left" onclick="slideCards('press-container', -1)"><i class="fas fa-chevron-left"></i></button>
+                    <div class="cards-container" id="press-container">
+                        <!-- Card with 2 images -->
+                        <div class="card press-card" data-card-id="press-1" data-image-2-url="news-events/medicine supply1.jpg.png">
+                            <img src="news-events/belts donate.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Newspaper+Clippings';" alt="Telugu Newspaper Clippings" class="card-profile-image">
+                            <div>
+                                <div class="card-date">January 1, 2024</div>
+                                <h3 class="card-title">Various Telugu Newspaper Clippings</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <i class="fas fa-newspaper"></i>
+                                        <span>Telugu Newspapers</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">Various Telugu newspaper clippings mention the foundation and events like a free medicine distribution.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">Various Telugu newspaper clippings mention the foundation and events like a free medicine distribution.</p>
+                            <a href="#" class="read-more-button">Read Article</a>
+                        </div>
+
+
+                        
+                        <div class="card press-card" data-card-id="press-2" data-video-url="https://www.youtube.com/embed/Hc89vM6WrDI">
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube.com/embed/Hc89vM6WrDI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div>
+                                <div class="card-date">February 15, 2020</div>
+                                <h3 class="card-title">Vanitha TV special on COVID-19</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <i class="fas fa-video"></i>
+                                        <span>Vanitha TV special on COVID-19</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">A Vanitha TV program provided crucial public guidance on medicine availability, medical supplies, and helplines during the COVID-19 pandemic.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">This segment from Vanitha TV, titled "During Corona.. How are the medicines?", was a vital public-service program. It brought together experts, doctors, and officials to address critical concerns about the availability and supply of medicines and medical equipment during the COVID-19 pandemic. The discussion also focused on how people could access help and information through various helplines, providing crucial guidance and reassurance to the public during a time of crisis.</p>
+                            <a href="https://youtu.be/Hc89vM6WrDI?si=VzzRxLqc-e0t6fIr" class="read-more-button">Read Article</a>
+                        </div>
+
+
+                        
+                        <div class="card press-card" data-card-id="press-3" >
+                            <img src="news-events/Namasthe Telangana.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Namasthe+Telangana';" alt="Namasthe Telangana Story" class="card-profile-image">
+                            <div>
+                                <div class="card-date">February 15, 2024</div>
+                                <h3 class="card-title">Namasthe Telangana Published Story</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <i class="fas fa-newspaper"></i>
+                                        <span>Namasthe Telangana</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">The newspaper Namasthe Telangana published a story about CFOT and articles about requests for government assistance during the pandemic.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">The newspaper Namasthe Telangana published a story about CFOT and articles about requests for government assistance during the pandemic.</p>
+                            <a href="#" class="read-more-button">Read Article</a>
+                        </div>
+
+                        <div class="card press-card" data-card-id="press-4">
+                            <img src="news-events/Times Hyderabad Hero.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Times+Hyderabad+Hero';" alt="Times Hyderabad Hero" class="card-profile-image">
+                            <div>
+                                <div class="card-date">March 10, 2024</div>
+                                <h3 class="card-title">Founder Nominated as Times Hyderabad Hero</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <i class="fas fa-newspaper"></i>
+                                        <span>Times of India</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">The founder, Bhagawan Reddy, was nominated as a "Times Hyderabad Hero" by the Times of India.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">The founder, Bhagawan Reddy, was nominated as a "Times Hyderabad Hero" by the Times of India.</p>
+                            <a href="#" class="read-more-button">Read Article</a>
+                        </div>
+                        
+                        <div class="card press-card" data-card-id="press-5">
+                            <img src="news-events/Radio Speech.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=MANA+RADIO+Interview';" alt="MANA RADIO Interview" class="card-profile-image">
+                            <div>
+                                <div class="card-date">April 5, 2024</div>
+                                <h3 class="card-title">Founder Interviewed by MANA RADIO</h3>
+                                <div class="card-meta">
+                                    <div class="card-source">
+                                        <i class="fas fa-podcast"></i>
+                                        <span>MANA RADIO</span>
+                                    </div>
+                                </div>
+                                <p class="card-summary">The founder was interviewed by "MANA RADIO," a Telugu radio for NRIs. The foundation was featured on Vanitha TV.</p>
+                            </div>
+                            <p class="card-full-text" style="display:none;">The founder was interviewed by "MANA RADIO," a Telugu radio for NRIs. The foundation was featured on Vanitha TV.</p>
+                            <a href="#" class="read-more-button">Read Article</a>
+                        </div>
+                    </div>
+                    <button class="slider-button slider-button-right" onclick="slideCards('press-container', 1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+        <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about-us.html">About Us</a>
+                    <a href="our-work.html">Success Stories</a>
+                    
+                    <a href="patient-support.html">Patient Support</a>
+                    <a href="get-involved.html">Get Involved</a>
+                    <a href="news-events.html">News & Events</a>
+                    <a href="annual-reports.html">Annual Reports</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/cfotindia/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cheyuthafoundation/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/cheyutha-foundation/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    
+                    <a href="https://www.youtube.com/channel/UCf5t0CP3B7B380GFviLz7MQ"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="modal-body">
+                <div class="modal-media-container">
+                </div>
+                <div class="modal-text-content">
+                    <div class="card-date" id="modal-date"></div>
+                    <h3 id="modal-title"></h3>
+                    <p id="modal-full-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal">
+        <span class="close-button">&times;</span>
+        <div id="gallery-image-container">
+            <img id="enlarged-gallery-image" src="" alt="Enlarged gallery image">
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavMenuContainer = document.querySelector('.mobile-menu-container');
+            const header = document.querySelector('header');
+            
+            if (mobileMenu && mobileNavMenuContainer) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileNavMenuContainer.classList.toggle('show');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+
+            // Function to dynamically adjust the mobile menu's top position to prevent gaps
+            function adjustMobileMenuPosition() {
+                if (mobileNavMenuContainer && header) {
+                    const headerHeight = header.offsetHeight;
+                    mobileNavMenuContainer.style.top = `${headerHeight}px`;
+                }
+            }
+
+            // Call the function on page load and window resize
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+
+            // Intersection Observer for animations
+            const animatedElements = document.querySelectorAll('.section, .impact-stats .stat-item, .cards-container .card');
+            const appearOptions = {
+                threshold: 0.2
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            animatedElements.forEach(element => {
+                appearOnScroll.observe(element);
+            });
+            
+            // Modal functionality for News & Events cards
+            const modal = document.getElementById('cardModal');
+            const modalMediaContainer = modal.querySelector('.modal-media-container');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDate = document.getElementById('modal-date');
+            const modalFullText = document.getElementById('modal-full-text');
+            const closeButton = document.querySelector('.close-button');
+            const cards = document.querySelectorAll('.card');
+
+            // Function to add media controls (zoom and fullscreen)
+            function addMediaControls(mediaElement, isVideo) {
+                const controlsContainer = document.createElement('div');
+                controlsContainer.classList.add('modal-media-controls');
+
+                const zoomInBtn = document.createElement('button');
+                zoomInBtn.innerHTML = '<i class="fas fa-magnifying-glass-plus"></i>';
+                zoomInBtn.onclick = () => {
+                    let currentScale = parseFloat(mediaElement.style.transform.replace('scale(', '').replace(')', '')) || 1;
+                    currentScale = Math.min(currentScale + 0.1, 3);
+                    mediaElement.style.transform = `scale(${currentScale})`;
+                };
+                
+                const zoomOutBtn = document.createElement('button');
+                zoomOutBtn.innerHTML = '<i class="fas fa-magnifying-glass-minus"></i>';
+                zoomOutBtn.onclick = () => {
+                    let currentScale = parseFloat(mediaElement.style.transform.replace('scale(', '').replace(')', '')) || 1;
+                    currentScale = Math.max(currentScale - 0.1, 1);
+                    mediaElement.style.transform = `scale(${currentScale})`;
+                };
+                
+                const fullscreenBtn = document.createElement('button');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                fullscreenBtn.onclick = () => {
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    } else {
+                        modalMediaContainer.requestFullscreen().catch(err => {
+                            console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                        });
+                    }
+                };
+                
+                if (!isVideo) {
+                    controlsContainer.appendChild(zoomInBtn);
+                    controlsContainer.appendChild(zoomOutBtn);
+                }
+                controlsContainer.appendChild(fullscreenBtn);
+                modalMediaContainer.appendChild(controlsContainer);
+
+                document.addEventListener('fullscreenchange', () => {
+                    if (document.fullscreenElement) {
+                        modalMediaContainer.classList.add('fullscreen-active');
+                    } else {
+                        modalMediaContainer.classList.remove('fullscreen-active');
+                    }
+                });
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.body.classList.add('no-scroll');
+                    
+                    const title = card.querySelector('.card-title').textContent;
+                    const date = card.querySelector('.card-date').textContent;
+                    const fullText = card.querySelector('.card-full-text').innerHTML;
+                    const imageUrl = card.querySelector('.card-profile-image')?.src;
+                    const videoUrl = card.getAttribute('data-video-url');
+                    const image2Url = card.getAttribute('data-image-2-url');
+
+                    modalTitle.textContent = title;
+                    modalDate.textContent = date;
+                    modalFullText.innerHTML = fullText;
+
+                    modalMediaContainer.innerHTML = ''; // Clear previous content
+
+                    if (videoUrl) {
+                        // Handle videos
+                        const videoContainer = document.createElement('div');
+                        videoContainer.classList.add('modal-video-container');
+                        const iframe = document.createElement('iframe');
+                        iframe.src = videoUrl;
+                        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                        iframe.setAttribute('allowfullscreen', '');
+                        videoContainer.appendChild(iframe);
+                        modalMediaContainer.appendChild(videoContainer);
+                        addMediaControls(iframe, true);
+                    } else if (imageUrl && image2Url) {
+                        // Handle multiple images with a slider
+                        let currentImageIndex = 0;
+                        const images = [imageUrl, image2Url];
+
+                        const imageElement = document.createElement('img');
+                        imageElement.src = images[currentImageIndex];
+                        imageElement.classList.add('modal-image');
+                        imageElement.style.transform = 'scale(1)'; // Reset scale
+                        modalMediaContainer.appendChild(imageElement);
+
+                        // Slider buttons
+                        const prevBtn = document.createElement('button');
+                        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                        prevBtn.classList.add('slider-button', 'slider-button-left');
+                        prevBtn.style.position = 'absolute';
+                        prevBtn.style.left = '10px';
+                        prevBtn.style.top = '50%';
+                        prevBtn.style.transform = 'translateY(-50%)';
+                        prevBtn.onclick = () => {
+                            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                            imageElement.src = images[currentImageIndex];
+                            imageElement.style.transform = 'scale(1)'; // Reset scale on slide
+                        };
+                        modalMediaContainer.appendChild(prevBtn);
+
+                        const nextBtn = document.createElement('button');
+                        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                        nextBtn.classList.add('slider-button', 'slider-button-right');
+                        nextBtn.style.position = 'absolute';
+                        nextBtn.style.right = '10px';
+                        nextBtn.style.top = '50%';
+                        nextBtn.style.transform = 'translateY(-50%)';
+                        nextBtn.onclick = () => {
+                            currentImageIndex = (currentImageIndex + 1) % images.length;
+                            imageElement.src = images[currentImageIndex];
+                            imageElement.style.transform = 'scale(1)'; // Reset scale on slide
+                        };
+                        modalMediaContainer.appendChild(nextBtn);
+
+                        // Add media controls (zoom and fullscreen) for the image element
+                        addMediaControls(imageElement, false);
+                    } else if (imageUrl) {
+                        // Handle single image
+                        const img = document.createElement('img');
+                        img.src = imageUrl;
+                        img.classList.add('modal-image');
+                        img.style.transform = 'scale(1)'; // Reset scale
+                        modalMediaContainer.appendChild(img);
+                        addMediaControls(img, false);
+                    }
+
+                    modal.style.display = 'flex';
+                });
+            });
+
+            closeButton.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('no-scroll');
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                }
+            });
+            
+            window.slideCards = function(containerId, direction) {
+                const container = document.getElementById(containerId);
+                if (container) {
+                    const cardWidth = container.querySelector('.card').offsetWidth;
+                    const gap = 24;
+                    const scrollAmount = (cardWidth + gap) * direction;
+                    container.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+            
+            // New JavaScript for the gallery modal
+            const galleryModal = document.getElementById('galleryModal');
+            const galleryImageContainer = document.getElementById('gallery-image-container');
+            const enlargedGalleryImage = document.getElementById('enlarged-gallery-image');
+            const galleryContainer = document.querySelector('.gallery-container');
+            const continuousScrollImages = document.querySelector('.continuous-scroll-images');
+
+            // Click event for gallery images
+            galleryContainer.addEventListener('click', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    const imageUrl = e.target.src;
+                    enlargedGalleryImage.src = imageUrl;
+                    galleryModal.style.display = 'flex';
+                    document.body.classList.add('no-scroll');
+                    continuousScrollImages.style.animationPlayState = 'paused';
+                }
+            });
+
+            // Close modal functionality for gallery
+            const galleryCloseButton = galleryModal.querySelector('.close-button');
+            galleryCloseButton.addEventListener('click', () => {
+                galleryModal.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+                continuousScrollImages.style.animationPlayState = 'running';
+            });
+            
+            // Close modal when clicking outside the image
+            galleryModal.addEventListener('click', (e) => {
+                if (e.target === galleryModal || e.target.parentElement === galleryImageContainer) {
+                    galleryModal.style.display = 'none';
+                    document.body.classList.remove('no-scroll');
+                    continuousScrollImages.style.animationPlayState = 'running';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

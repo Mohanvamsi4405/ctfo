@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & FAQ - Cheyutha Foundation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* --- GLOBAL & CUSTOM STYLES --- */
+        :root {
+            --primary-color: #e67e22; /* Orange */
+            --secondary-color: #42b6a9; /* Teal */
+            --dark-blue: #1e3a5f;
+            --light-bg: #fdf3f3;
+            --alt-bg: #fdfcf9;
+            --text-color: #333;
+            --light-text: #fff;
+            --header-height: 100px; /* Default height, will be set by JS */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fdf3f3;
+            overflow-x: hidden;
+        }
+
+        /* Gradient background animation */
+        .animated-bg {
+            background: linear-gradient(135deg, #fce7f3, #d9f0fd, #d1f7e0, #fff3e6);
+            background-size: 300% 300%;
+            animation: vibrantGradientMove 25s ease-in-out infinite;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            background: #b8ebe1;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Container for the logo and name */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            height: 70px;
+            max-width: 100%;
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        /* Desktop Header Actions */
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+        
+        /* Highlight the active link for the Contact page */
+        nav ul li a[href="contact.html"] {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        /* Mobile Header Actions */
+        .header-mobile-actions {
+            display: none; /* Hidden by default on desktop */
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .donate-button {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+            white-space: nowrap;
+        }
+        
+        /* Specific mobile styling for the donate button inside the mobile actions container */
+        .header-mobile-actions .donate-button {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            margin-left: 0;
+            white-space: normal;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+        
+        /* Mobile menu container that is hidden by default */
+        .mobile-menu-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: #b8ebe1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            z-index: 150;
+            top: var(--header-height);
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+
+
+        /* --- CONTACT PAGE SPECIFIC STYLES --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.4);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px 0 rgba(31, 38, 135, 0.5);
+        }
+        
+        .input-icon-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .input-icon-group i {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .input-icon-group input,
+        .input-icon-group textarea {
+            padding: 1rem 1.5rem 1rem 4rem;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        .input-icon-group input:focus,
+        .input-icon-group textarea:focus {
+            outline: none;
+            border-color: #db2777;
+            box-shadow: 0 0 15px rgba(219, 39, 119, 0.4);
+        }
+        .input-icon-group input:focus + i,
+        .input-icon-group textarea:focus + i {
+            color: #db2777;
+        }
+        
+        /* New Animation for the Submit Button */
+        @keyframes floatingGlow {
+            0%, 100% {
+                transform: translateY(0);
+                box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
+            }
+            50% {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(219, 39, 119, 0.6);
+            }
+        }
+        .submit-btn {
+            background: linear-gradient(45deg, #db2777, #0ea5e9);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            animation: floatingGlow 3s infinite ease-in-out;
+            position: relative;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #0ea5e9, #db2777);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(219, 39, 119, 0.5);
+        }
+
+        .message-box {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            opacity: 0;
+            background: linear-gradient(45deg, #10b981, #0ea5e9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+        .message-box.show {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+        }
+
+        /* --- MAP CONTAINER STYLES --- */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.4);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- FAQ ACCORDION STYLES --- */
+        .faq-section {
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .faq-container h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .faq-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #e67e22;
+            border-radius: 2px;
+        }
+        .faq-container .subheading {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 3rem;
+        }
+        .accordion-item {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+        /* Styles for the animated borders on each accordion card */
+        @keyframes pastelBorderMove {
+            0%, 100% { background-position: 0% 100% }
+            50% { background-position: 100% 0%; }
+        }
+        .accordion-item::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 10px;
+            z-index: -1;
+            background-size: 400% 400%;
+            animation: pastelBorderMove 8s ease infinite;
+        }
+        .faq-card-1::before {
+            background: linear-gradient(135deg, #e3f2fd 0%, #b2ebf2 60%, #d4fc79 100%);
+        }
+        .faq-card-2::before {
+            background: linear-gradient(135deg, #e8eafb 0%, #dcd6fa 60%, #fdeaea 100%);
+        }
+        .faq-card-3::before {
+            background: linear-gradient(135deg, #e0f7fa 0%, #fffde4 60%, #fddbff 100%);
+        }
+        .faq-card-4::before {
+            background: linear-gradient(135deg, #fdf6e3 0%, #e5f5ec 50%, #ffe0ec 100%);
+        }
+        .faq-card-5::before {
+            background: linear-gradient(135deg, #f0f9ff 0%, #d9f3f9 60%, #c4e9e0 100%);
+        }
+
+        .accordion-button {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            text-align: left;
+            background-color: transparent;
+            color: #2c3e50;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .accordion-button:hover {
+            color: #e67e22;
+        }
+        .accordion-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.active i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+            padding: 0 2rem;
+        }
+        .accordion-content.open {
+            max-height: 500px;
+            padding: 1.5rem 2rem;
+        }
+        .accordion-content p {
+            padding-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+        }
+        
+        /* --- FOOTER --- */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+        
+        /* --- ANIMATIONS --- */
+        @keyframes vibrantGradientMove {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animated-element {
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .animate-fade-in-up {
+            animation-name: fadeInUp;
+            animation-duration: 1s;
+            animation-timing-function: ease-out;
+        }
+        .animate-slide-in-left {
+            animation-name: slideInFromLeft;
+            animation-duration: 1s;
+            animation-timing-function: ease-out;
+        }
+        .animate-slide-in-right {
+            animation-name: slideInFromRight;
+            animation-duration: 1s;
+            animation-timing-function: ease-out;
+        }
+        
+        /* --- RESPONSIVE STYLES --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .header-brand {
+                width: auto;
+                justify-content: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0;
+            }
+            .logo-image {
+                height: 50px;
+            }
+            .header-name h1 {
+                font-size: 1.5rem;
+            }
+            .header-desktop-actions {
+                display: none; /* Hide desktop nav on mobile */
+            }
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            /* Correctly show the donate button in the mobile view */
+            .header-mobile-actions .donate-button {
+                display: block;
+            }
+            /* Hide the desktop donate button on mobile */
+            .header-desktop-actions .donate-button {
+                display: none;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                text-align: center;
+            }
+            nav ul li {
+                margin: 0;
+                padding: 0;
+            }
+            nav ul li a {
+                display: inline-block;
+                padding: 15px 20px;
+                width: auto;
+                border-bottom: 3px solid transparent;
+            }
+            nav ul li a:hover {
+                border-bottom: none;
+            }
+            nav ul li a[href="contact.html"] {
+                color: #e67e22;
+                border-bottom: 3px solid #e67e22;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            .footer-section ul {
+                list-style: none;
+            }
+            .footer-section .footer-links a {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body class="animated-bg">
+    <header id="main-header">
+        <div class="header-brand">
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/100x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+        
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+        
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobile-menu-container" class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Reports & Books</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="pt-12 pb-16 px-4 sm:px-8 lg:px-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-extrabold text-rose-600 mb-4 animated-element animate-fade-in-up" style="animation-delay: 0.2s;">Contact Us</h1>
+                <p class="text-lg text-gray-600 animated-element animate-fade-in-up" style="animation-delay: 0.5s;">We're here to help. Reach out with any questions or support needs.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch mb-16">
+                <div id="contact-info-card" class="w-full lg:w-1/2 p-6 rounded-3xl shadow-xl glass-card animated-element animate-slide-in-left" style="animation-delay: 0.8s;">
+                    <h2 class="text-2xl font-bold text-rose-600 mb-4">Our Details</h2>
+                    
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="text-xl text-sky-600"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <p class="font-semibold text-base text-gray-800">Our Location</p>
+                            <p class="text-sm text-gray-600">4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="text-xl text-sky-600"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <p class="font-semibold text-base text-gray-800">Helpline Number</p>
+                            <p class="text-sm text-gray-600">8328605200</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="text-xl text-sky-600"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <p class="font-semibold text-base text-gray-800">Email Address</p>
+                            <p class="text-sm text-gray-600">cheyuthafoundation.organ@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="text-xl text-sky-600"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <p class="font-semibold text-base text-gray-800">Website</p>
+                            <p class="text-sm text-gray-600">http://www.cfotindia.org</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-bold text-rose-600 mb-2">Follow Us</h3>
+                        <div class="flex gap-4 justify-center">
+                            <a href="https://www.facebook.com/cfotindia/" target="_blank" class="text-2xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/cfotindia" target="_blank" class="text-2xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/cheyuthafoundation/" target="_blank" class="text-2xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.youtube.com/channel/UCf5t0CP3B7B380GFviLz7MQ" target="_blank" class="text-2xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                            
+
+                            <a href="https://www.linkedin.com/in/cfotindia" target="_blank" class="text-2xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-linkedin"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contact-form-card" class="w-full lg:w-1/2 p-6 rounded-3xl shadow-xl glass-card animated-element animate-slide-in-right" style="animation-delay: 1.1s;">
+                    <h2 class="text-2xl font-bold text-rose-600 mb-4">Send Us a Message</h2>
+                    <form id="contact-form">
+                        <p class="text-sm text-gray-600 text-center mb-4">Feel free to ask a question or provide your valuable feedback.</p>
+                        <div class="input-icon-group">
+                            <input type="text" id="name" placeholder="Full Name" required class="w-full">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="input-icon-group">
+                            <input type="email" id="email" placeholder="Email Address" required class="w-full">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="input-icon-group">
+                            <input type="text" id="subject" placeholder="Subject" required class="w-full">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div class="input-icon-group">
+                            <textarea id="message" rows="4" placeholder="Your Message..." required class="w-full"></textarea>
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <div class="text-center mt-6">
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <section class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-rose-600 mb-2">Our Location</h2>
+                    <p class="text-lg text-gray-600">You can find us here on the map.</p>
+                </div>
+                <div class="map-container rounded-3xl shadow-xl animated-element animate-fade-in-up" style="animation-delay: 1.4s;">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.641662580718!2d78.4069871759495!3d17.381372502127598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc9514742a08899%3A0x67e56216447c2104!2s3-11%2C%20Kismathpur%2C%20Don%20Bosco%20Nagar%2C%20Rajendra%20Nagar%2C%20Telangana%20500030%2C%20India!5e0!3m2!1sen!2sus!4v1714897258064!5m2!1sen!2sus"
+                        width="100%" 
+                        height="350" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </section>
+
+            <section class="faq-section">
+                <div class="faq-container">
+                    <h2 class="text-rose-600">Frequently Asked Questions</h2>
+                    <p class="subheading">Find answers to common questions about our mission, services, and how you can help.</p>
+                    
+                    <div class="accordion-item glass-card faq-card-1 animated-element animate-fade-in-up" style="animation-delay: 1.6s;">
+                        <button class="accordion-button">
+                            What is Cheyutha Foundation for Organ Transplants?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Cheyutha Foundation for Organ Transplants (CFOT) is a social organization founded in 2015 by renal transplant recipients. We are dedicated to providing comprehensive support to patients with kidney diseases, including those on dialysis or awaiting transplantation, across Telangana and Andhra Pradesh.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item glass-card faq-card-2 animated-element animate-fade-in-up" style="animation-delay: 1.8s;">
+                        <button class="accordion-button">
+                            How can I get involved and support your work?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>There are many ways to get involved! You can make a donation, volunteer your time and skills, or help spread awareness about organ donation. Visit our "Get Involved" page for more details on how you can make a difference.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item glass-card faq-card-3 animated-element animate-fade-in-up" style="animation-delay: 2.0s;">
+                        <button class="accordion-button">
+                            Do you provide financial assistance for transplant surgeries?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>We work to provide financial support and emotional assistance to needy patients wherever possible. Our goal is to alleviate the burden of healthcare costs and ensure patients have access to the care they need. We also help patients access government schemes and other support programs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item glass-card faq-card-4 animated-element animate-fade-in-up" style="animation-delay: 2.2s;">
+                        <button class="accordion-button">
+                            Where is Cheyutha Foundation located?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Our office is located at 4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218. You can find our updated contact information and a map on this page.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item glass-card faq-card-5 animated-element animate-fade-in-up" style="animation-delay: 2.4s;">
+                        <button class="accordion-button">
+                            What kind of educational resources do you offer?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>We offer educational resources on new treatments, post-transplant care, and lifestyle management for patients. We organize regular sessions with doctors and medical professionals to keep our community informed and empowered.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="message-box" class="message-box">
+        <p>Your message has been sent successfully! We will get back to you shortly.</p>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> +91 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="space-y-1">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/18bdMJnMz5/" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@cheyuthafoundationfororgan4570?feature=shared" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/cfotindia" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle button
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenuContainer = document.getElementById('mobile-menu-container');
+
+            if (mobileMenuToggle && mobileMenuContainer) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileMenuContainer.classList.toggle('show');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+
+            // Function to set the position of the mobile menu
+            function adjustMobileMenuPosition() {
+                const header = document.getElementById('main-header');
+                const mobileMenuNav = document.getElementById('mobile-menu-container');
+                if (header && mobileMenuNav) {
+                    const headerHeight = header.offsetHeight;
+                    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+                }
+            }
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+
+
+            // Accordion Functionality: Toggles the visibility of FAQ answers.
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const isActive = button.classList.toggle('active');
+                    
+                    if (isActive) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = "0";
+                    }
+                    
+                    // Close other open accordions to prevent multiple sections being open at once.
+                    accordionButtons.forEach(otherButton => {
+                        if (otherButton !== button && otherButton.classList.contains('active')) {
+                            otherButton.classList.remove('active');
+                            otherButton.nextElementSibling.style.maxHeight = "0";
+                        }
+                    });
+                });
+            });
+
+            // Contact Form Submission (Simulated):
+            // This function simulates form submission and shows a success message.
+            const contactForm = document.getElementById('contact-form');
+            const messageBox = document.getElementById('message-box');
+            if (contactForm && messageBox) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    // Clear the form fields for a clean state.
+                    contactForm.reset();
+                    
+                    // Show the success message box.
+                    messageBox.classList.add('show');
+                    
+                    // Hide the message box after 5 seconds.
+                    setTimeout(() => {
+                        messageBox.classList.remove('show');
+                    }, 5000);
+                });
+            }
+
+            // Intersection Observer for animations:
+            // Fades in elements as they become visible on the screen.
+            const animatedElements = document.querySelectorAll('.animated-element, .accordion-item');
+            const appearOptions = { threshold: 0.2 };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Check for specific animation class based on element ID
+                        if (entry.target.id === 'contact-info-card') {
+                            entry.target.classList.add('animate-slide-in-left');
+                        } else if (entry.target.id === 'contact-form-card') {
+                            entry.target.classList.add('animate-slide-in-right');
+                        } else {
+                            // Default animation for other animated elements
+                            entry.target.classList.add('animate-fade-in-up');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            animatedElements.forEach(element => {
+                appearOnScroll.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

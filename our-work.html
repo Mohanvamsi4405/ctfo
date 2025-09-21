@@ -1,0 +1,1444 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories - Cheyutha Foundation for Organ Transplants</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter font from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f1e7;
+            overflow-x: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #b8ebe1;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Container for the logo and name */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            height: 70px;
+            max-width: 100%;
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        /* Desktop Header Actions */
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+        
+        /* Active link highlight for desktop navigation */
+        nav ul li a[href="our-work.html"] {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        /* Mobile Header Actions - Hidden by default on desktop */
+        .header-mobile-actions {
+            display: none; 
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        /* Styling for the donate button */
+        .donate-button {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+
+        /* Mobile menu container that is hidden by default */
+        .mobile-menu-container {
+            display: none; 
+            flex-direction: column;
+            width: 100%;
+            background: #b8ebe1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            z-index: 150; 
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+        
+        /* Reusable Components */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 5vw, 2rem);
+        }
+        
+        .section-separator {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #e67e22, #003366);
+            margin: 0 auto 1rem;
+            border: none;
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 800;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: #555;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 1rem auto;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem 0;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #003366;
+            margin-bottom: 0.5rem;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* Statistics Section */
+        #statistics {
+            padding: clamp(1.5rem, 6vw, 3rem) 0;
+            background: #f1f7f6;
+        }
+        
+        .statistics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            color: #2c3e50;
+        }
+        
+        .stat-item:nth-child(1) { background: linear-gradient(135deg, #e0f7fa, #b3e5fc); }
+        .stat-item:nth-child(2) { background: linear-gradient(135deg, #f0f4c3, #cddc39); }
+        .stat-item:nth-child(3) { background: linear-gradient(135deg, #fff3e0, #ffcc80); }
+        .stat-item:nth-child(4) { background: linear-gradient(135deg, #e8f5e9, #a5d6a7); }
+
+        .stat-item.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 800;
+            color: #e67e22;  
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            color: #003366;
+        }
+        
+        /* New Patient Videos & Stories Section */
+        #combined-stories-section {
+            padding: clamp(1.5rem, 6vw, 3rem) 0;
+            background-color: #fefce7; /* Use a consistent background for the whole section */
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack videos on mobile */
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem; /* Add space between videos and stories */
+        }
+        
+        /* Two columns on medium screens and up */
+        @media (min-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Four columns on larger screens (desktop) */
+        @media (min-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        /* Success Stories */
+        .story-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack stories on mobile */
+            gap: 2rem;
+        }
+
+        /* Two columns on medium screens and up */
+        @media (min-width: 768px) {
+            .story-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Taller carousel images on desktop */
+        @media (min-width: 768px) {
+             .story-image-carousel {
+                height: 300px;
+             }
+        }
+
+        .story-container {
+            background: linear-gradient(145deg, #ffffff, #f9f9f9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+        }
+
+        .story-container.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .story-container:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        /* Carousel Styling */
+        .story-image-carousel {
+            position: relative;
+            width: 100%;
+            height: 250px; /* Default height for mobile */
+            overflow: hidden;
+            display: block;
+        }
+        
+        .story-image-carousel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 51, 102, 0.4), transparent);
+            z-index: 5;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-track img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* Enlarge Button Styling */
+        .enlarge-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .enlarge-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: #e67e22;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-content h3 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-content blockquote {
+            font-style: italic;
+            border-left: 4px solid #003366;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #444;
+            transition: opacity 0.8s ease;
+            opacity: 1;
+        }
+        
+        .story-content p {
+            margin-bottom: 1rem;
+        }
+
+        .story-content cite {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            font-style: normal;
+            margin-top: 1rem;
+        }
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+        
+        /* Updated footer links to remove list item styling */
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block; /* Make links block-level to ensure line breaks */
+            margin-bottom: 0.8rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+        
+        /* Lightbox Modal Styles */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: fadeIn 0.3s;
+            display: flex; /* Stack children vertically */
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lightbox-modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            object-fit: contain;
+            transform-origin: center center;
+            transition: transform 0.2s ease-in-out;
+            cursor: zoom-in;
+            user-select: none;
+        }
+        
+        .lightbox-modal-content img.zoomed {
+            cursor: grab;
+        }
+        
+        .lightbox-modal-content img.zoomed:active {
+            cursor: grabbing;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            text-shadow: 0 0 5px black;
+        }
+
+        /* Navigation button wrapper */
+        .lightbox-nav-wrapper {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: none; /* Hidden by default */
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through to the image */
+            padding: 0 20px;
+        }
+        
+        .lightbox-nav-btn {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto; /* Re-enables clicks for the buttons */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .lightbox-nav-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Zoom controls */
+        .lightbox-zoom-controls {
+            display: flex;
+            gap: 15px;
+            z-index: 1001;
+            margin-top: 10px; /* Spacing from the image */
+        }
+        
+        .lightbox-zoom-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .lightbox-zoom-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        /* Fullscreen button specific styles */
+        #fullscreen-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        #fullscreen-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        /* General Animations */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive Styles */
+        @media (min-width: 769px) {
+            .mobile-menu-container {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .program-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row; 
+                justify-content: space-between; 
+                align-items: center;
+            }
+            .header-brand {
+                flex-grow: 0; 
+                gap: 0.5rem;
+            }
+            .logo-image {
+                height: 50px;
+            }
+            
+            /* Corrected font size for the header name on mobile */
+            .header-name h1 {
+                font-size: 1.5rem;
+                text-align: left;
+                line-height: 1.1;
+            }
+            
+            /* Hide the desktop navigation on mobile */
+            .header-desktop-actions {
+                display: none;
+            }
+
+            /* Display the mobile actions container and set its layout */
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            /* The mobile menu dropdown container is now outside the header */
+            .mobile-menu-container {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #b8ebe1;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                text-align: center;
+                position: fixed;
+                top: 100px;
+                left: 0;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                z-index: 150; 
+            }
+
+            .mobile-menu-container.show {
+                display: flex;
+            }
+            
+            nav ul {
+                display: flex;
+                flex-direction: column;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                align-items: center;
+            }
+
+            nav ul li {
+                width: auto; /* Revert to auto width for individual links */
+                margin: 0;
+                text-align: center;
+                padding: 0;
+            }
+
+            nav ul li a {
+                display: inline-block; /* Make links inline-block again */
+                padding: 15px 20px;
+                width: auto; /* Revert to auto width */
+                border-bottom: 3px solid transparent; /* Ensure default state is consistent */
+            }
+            nav ul li a:hover {
+                border-bottom: none;
+            }
+            
+            /* Active link highlight for mobile navigation - spans only the link text width */
+            .mobile-menu-container nav ul li a[href="our-work.html"] {
+                color: #e67e22;
+                border-bottom: 3px solid #e67e22;
+            }
+
+            .dropdown-menu {
+                position: static;
+                display: none;
+                padding: 0;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+                background: #c7f0e4;
+            }
+            .has-dropdown:hover > .dropdown-menu {
+                display: none;
+            }
+            .has-dropdown.active > .dropdown-menu {
+                display: block;
+            }
+            .dropdown-menu li a {
+                padding-left: 40px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .donate-button {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+                margin-left: 0;
+            }
+            .page-title {
+                font-size: 2.5rem;
+            }
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .story-cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            /* Updated footer quick links on mobile */
+            .footer-section .footer-links {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+        }
+        /* New media query for responsive image size */
+        @media (max-width: 768px) {
+            .story-image-carousel {
+                height: 250px; /* Adjust height for mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-brand">
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/70x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+        
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+        
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Reports & Books</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Success Stories</h1>
+                <p class="page-subtitle">A look into the lives we've transformed and the programs that make a difference. We are committed to providing comprehensive support for kidney patients.</p>
+            </div>
+        </div>
+        
+    <section id="statistics">
+        <div class="container">
+            <h2 class="section-title">Our Impact in Numbers</h2>
+            <div class="section-separator"></div>
+            <p class="section-subtitle">A decade of dedication, support, and community building. These numbers reflect the collective effort of our team, volunteers, and donors.</p>
+            <div class="statistics-grid">
+                <div class="stat-item stat-animated-item" style="background: linear-gradient(to right, #d2e8ff, #ffdddd);">
+                    <span class="stat-number" data-count="250">0</span>
+                    <span class="stat-label">Transplants Supported</span>
+                </div>
+                <div class="stat-item stat-animated-item" style="background: linear-gradient(to right, #e8eafb, #dcd6fa, #fdeaea);">
+                    <span class="stat-number" data-count="500">0</span>
+                    <span class="stat-label">Patients on Dialysis Assisted</span>
+                </div>
+                <div class="stat-item stat-animated-item" style="background: linear-gradient(to right, #e0f7fa, #fffde4, #fddbff);">
+                    <span class="stat-number" data-count="10+">0</span>
+                    <span class="stat-label">Years of Service</span>
+                </div>
+                <div class="stat-item stat-animated-item" style="background: linear-gradient(to right, #fdf6e3, #e5f5ec, #ffe0ec);">
+                    <span class="stat-number" data-count="1000">0</span>
+                    <span class="stat-label">Families Empowered</span>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section id="combined-stories-section">
+        
+            
+           <section id="combined-stories-section">
+        <div class="container">
+            <h2 class="section-title">Patient Voices & Success Stories</h2>
+            <div class="section-separator"></div>
+            <p class="section-subtitle">Hear firsthand from patients and see the impact of our work through a collection of stories and testimonials.</p>
+            
+           <div class="video-grid">
+    <div class="video-container">
+        <iframe src="Videos/1.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 1"></iframe>
+    </div>
+    <div class="video-container">
+        <iframe src="Videos/2.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 2"></iframe>
+    </div>
+    <div class="video-container">
+        <iframe src="Videos/3.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 3"></iframe>
+    </div>
+    <div class="video-container">
+        <iframe src="Videos/4.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 4"></iframe>
+    </div>
+</div>
+            
+            <div class="story-cards-grid">
+                <!-- Story 1: Krishna -->
+                <div class="story-container">
+                    <div class="story-image-carousel">
+                        <div class="carousel-track">
+                            <img src="Sucess Stories/S1.1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Krishna+Story';" alt="Krishna's Journey Image 1">
+                            <img src="Sucess Stories/S1.2.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Krishna+with+family';" alt="Krishna with his family Image 2">
+                        </div>
+                        <button class="enlarge-btn"><i class="fas fa-magnifying-glass-plus"></i></button>
+                        <div class="carousel-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Krishna, Mamidipally, Hyderabad</h3>
+                        <blockquote>"After my parents learned my blood group did not match theirs, we were worried. Cheyutha Foundation helped me register for the JEEVANDAAN Scheme, giving me a place in the queue for a new kidney and new hope for my future."</blockquote>
+                        <cite>— Krishna, Kidney Transplant Candidate</cite>
+                    </div>
+                </div>
+                
+                <!-- Story 2: Pension to Kidney Transplant Recipients -->
+                <div class="story-container">
+                    <div class="story-image-carousel">
+                        <div class="carousel-track">
+                            <img src="Sucess Stories/S2.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Community+Meeting';" alt="A group of people at a meeting with government officials">
+                        </div>
+                        <button class="enlarge-btn"><i class="fas fa-magnifying-glass-plus"></i></button>
+                        <div class="carousel-dots">
+                            <span class="dot active"></span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Pension for Kidney Transplant Recipients in Andhra Pradesh</h3>
+                        <blockquote>"Through our collective effort and persistent calls to the 'Dial your Arogya Sri CEO' program, the Cheyutha Foundation was able to advocate for and secure a monthly pension of Rs. 5000 for kidney, liver, and heart transplant patients across the state."</blockquote>
+                        <cite>— A Community Success Story</cite>
+                    </div>
+                </div>
+                
+                <!-- Story 3: Times Hyderabad Hero -->
+                <div class="story-container">
+                    <div class="story-image-carousel">
+                        <div class="carousel-track">
+                            <img src="Sucess Stories/S3.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Mr.+Bhagavan+Reddy';" alt="A picture of Mr. Bhagavan Reddy">
+                        </div>
+                        <button class="enlarge-btn"><i class="fas fa-magnifying-glass-plus"></i></button>
+                        <div class="carousel-dots">
+                            <span class="dot active"></span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Our Founder Recognized as a Times Hyderabad Hero</h3>
+                        <blockquote>"The Times of India nominated our founder, Mr. Bhagavan Reddy, as a 'Times Hyderabad Hero' on March 4, 2020, in recognition of his tireless efforts in helping kidney patients and raising awareness about organ donation."</blockquote>
+                        <cite>— Cheyutha Foundation</cite>
+                    </div>
+                </div>
+                
+                <!-- Story 4: Mr. Srinivasa Rao -->
+                <div class="story-container">
+                    <div class="story-image-carousel">
+                        <div class="carousel-track">
+                            <img src="Sucess Stories/S4.1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Mr.+Srinivasa+Rao';" alt="Mr. Srinivasa Rao with his family">
+                            <img src="Sucess Stories/S4.2.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Mr.+Srinivasa+Rao+and+his+wife';" alt="Mr. Srinivasa Rao and his wife">
+                            <img src="Sucess Stories/S4.3.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Celebration';" alt="Mr. Srinivasa Rao celebrating">
+                            
+                        </div>
+                        <button class="enlarge-btn"><i class="fas fa-magnifying-glass-plus"></i></button>
+                        <div class="carousel-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <h3>"My wife gave me a second chance to Live"</h3>
+                        <blockquote>"The cost of my transplant was an unbearable burden. But the founders of Cheyutha Foundation counseled my family and with their help, the cost was reduced from Rs. 12 lakhs to Rs. 6 lakhs. Today, I am healthy and living a normal life with my family."</blockquote>
+                        <cite>— Mr. Srinivasa Rao, Kidney Transplant Recipient</cite>
+                    </div>
+                </div>
+
+                <!-- Story 5: Dr. M. Channa Reddy Centenary -->
+                <div class="story-container">
+                    <div class="story-image-carousel">
+                        <div class="carousel-track">
+                            <img src="Sucess Stories/S5.1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Event+Stage';" alt="An event stage with a crowd">
+                            <img src="Sucess Stories/S5.2.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Event+Speaker';" alt="A speaker at the Dr. M. Channa Reddy event">
+                        </div>
+                        <button class="enlarge-btn"><i class="fas fa-magnifying-glass-plus"></i></button>
+                        <div class="carousel-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Cheyutha Foundation Recognized at Dr. M. Channa Reddy's Centenary Celebrations</h3>
+                        <blockquote>"The Cheyutha Foundation was honored and recognized for its work at the Birth Centenary Celebrations of Dr. M. Channa Reddy at Shanti Sarovar, demonstrating the impact of our mission on a wider scale."</blockquote>
+                        <cite>— Cheyutha Foundation</cite>
+                    </div>
+                </div>
+                
+                <!-- Story 6: Mr. Swamy -->
+                <div class="story-container">
+                    <div class="story-image-carousel">
+                        <div class="carousel-track">
+                            <img src="Sucess Stories/S6.2.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Mr.+Swamy+with+mother';" alt="Mr. Swamy with his mother">
+                            <img src="Sucess Stories/S6.1.png" onerror="this.onerror=null;this.src='https://placehold.co/400x300/b8ebe1/e67e22?text=Mr.+Swamy+family';" alt="Mr. Swamy's family">
+                        </div>
+                        <button class="enlarge-btn"><i class="fas fa-magnifying-glass-plus"></i></button>
+                        <div class="carousel-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <h3>"My mother gave me a second chance to Live"</h3>
+                        <blockquote>"Thanks to the foundation's motivation and guidance, I was able to receive a kidney from my mother. The foundation also helped reduce my treatment costs by a significant amount and now provides me with a monthly pension."</blockquote>
+                        <cite>— Mr. Swamy, Kidney Transplant Recipient</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about-us.html">About Us</a>
+                    <a href="our-work.html">Success Stories</a>
+                    <a href="patient-support.html">Patient Support</a>
+                    <a href="get-involved.html">Get Involved</a>
+                    <a href="news-events.html">News & Events</a>
+                    <a href="annual-reports.html">Reports & Books</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/18bdMJnMz5/" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@cheyuthafoundationfororgan4570?feature=shared" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/cfotindia" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal for Full-Screen Images -->
+    <div id="lightbox-modal" class="lightbox-modal">
+      <span class="lightbox-close">&times;</span>
+      <div class="lightbox-modal-content">
+        <img id="lightbox-image" src="" alt="Full-screen view of story image">
+        <div class="lightbox-zoom-controls">
+          <button class="lightbox-zoom-btn" id="zoom-in-btn"><i class="fas fa-search-plus"></i></button>
+          <button class="lightbox-zoom-btn" id="zoom-out-btn"><i class="fas fa-search-minus"></i></button>
+          <button class="lightbox-zoom-btn" id="fullscreen-btn"><i class="fas fa-expand"></i></button>
+        </div>
+      </div>
+      <!-- This wrapper now controls the display of navigation buttons -->
+      <div class="lightbox-nav-wrapper" id="lightbox-nav-wrapper">
+        <a class="lightbox-nav-btn prev"><i class="fas fa-chevron-left"></i></a>
+        <a class="lightbox-nav-btn next"><i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavMenuContainer = document.querySelector('.mobile-menu-container');
+            const header = document.querySelector('header');
+
+            if (mobileMenu && mobileNavMenuContainer) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileNavMenuContainer.classList.toggle('show');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+
+            // Function to dynamically adjust the mobile menu's top position to prevent gaps
+            function adjustMobileMenuPosition() {
+                if (mobileNavMenuContainer && header) {
+                    const headerHeight = header.offsetHeight;
+                    mobileNavMenuContainer.style.top = `${headerHeight}px`;
+                }
+            }
+
+            // Call the function on page load and window resize
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+            
+            // Intersection Observer for animations
+            const animatedStories = document.querySelectorAll('.story-container');
+            
+            const appearOptions = { threshold: 0.2 };
+            
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+            
+            animatedStories.forEach(story => {
+                appearOnScroll.observe(story);
+            });
+            
+            const statObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statItems = entry.target.querySelectorAll('.stat-animated-item');
+                        statItems.forEach((statItem, index) => {
+                            const statNumberSpan = statItem.querySelector('.stat-number');
+                            const targetNumber = parseInt(statNumberSpan.getAttribute('data-count'), 10);
+                            
+                            setTimeout(() => {
+                                statItem.classList.add('visible');
+                                animateNumber(statNumberSpan, targetNumber);
+                            }, index * 200);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            function animateNumber(element, target) {
+                const duration = 2000;
+                let start = 0;
+                const increment = target / (duration / 10);
+                let current = start;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    if (element.getAttribute('data-count') === '8') {
+                                element.textContent = Math.round(current);
+                    } else {
+                                element.textContent = Math.round(current) + '+';
+                    }
+                }, 10);
+            }
+            
+            const statsGrid = document.querySelector('.statistics-grid');
+            if (statsGrid) {
+                statObserver.observe(statsGrid);
+            }
+
+            // Carousel functionality
+            const carousels = document.querySelectorAll('.story-image-carousel');
+            carousels.forEach(carousel => {
+                const track = carousel.querySelector('.carousel-track');
+                const slides = Array.from(track.children);
+                const dotsNav = carousel.querySelector('.carousel-dots');
+                const enlargeBtn = carousel.querySelector('.enlarge-btn');
+            
+                let currentSlideIndex = 0;
+                if (slides.length <= 1) {
+                    dotsNav.style.display = 'none';
+                }
+
+                const updateCarousel = () => {
+                    const slideWidth = slides[0].getBoundingClientRect().width;
+                    const transformValue = -slideWidth * currentSlideIndex;
+                    track.style.transform = `translateX(${transformValue}px)`;
+                
+                    const dots = Array.from(dotsNav.children);
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlideIndex);
+                    });
+                };
+            
+                const dots = Array.from(dotsNav.children);
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentSlideIndex = index;
+                        updateCarousel();
+                    });
+                });
+            
+                window.addEventListener('resize', () => {
+                    updateCarousel();
+                });
+            
+                updateCarousel();
+
+                // Add event listener for the new enlarge button
+                enlargeBtn.addEventListener('click', () => {
+                    const currentImage = slides[currentSlideIndex];
+                    const lightboxImage = document.getElementById('lightbox-image');
+                    const lightbox = document.getElementById('lightbox-modal');
+                    const lightboxNavWrapper = document.getElementById('lightbox-nav-wrapper');
+                    
+                    lightboxImage.src = currentImage.src;
+                    lightbox.style.display = 'flex';
+                    lightboxImage.style.transform = `scale(1)`;
+                    lightboxImage.classList.add('zoomable');
+                    
+                    // Set currentImages and currentImageIndex for the lightbox
+                    const imagesInTrack = Array.from(track.querySelectorAll('img'));
+                    window.currentImages = imagesInTrack.map(img => img.src);
+                    window.currentImageIndex = currentSlideIndex;
+
+                    // UPDATED: Show or hide navigation buttons based on image count
+                    if (window.currentImages.length > 1) {
+                        lightboxNavWrapper.style.display = 'flex';
+                    } else {
+                        lightboxNavWrapper.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Lightbox functionality - now uses window-scoped variables
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const lightboxNavPrev = document.querySelector('.lightbox-nav-btn.prev');
+            const lightboxNavNext = document.querySelector('.lightbox-nav-btn.next');
+            const lightboxNavWrapper = document.getElementById('lightbox-nav-wrapper');
+            const zoomInBtn = document.getElementById('zoom-in-btn');
+            const zoomOutBtn = document.getElementById('zoom-out-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            
+            let zoomLevel = 1;
+            const maxZoom = 3;
+            const minZoom = 1;
+            const zoomStep = 0.2;
+
+            lightboxClose.addEventListener('click', function() {
+                lightbox.style.display = 'none';
+                // Reset zoom and image state
+                zoomLevel = 1;
+                lightboxImage.style.transform = `scale(1)`;
+                lightboxImage.classList.remove('zoomed');
+                lightboxImage.classList.add('zoomable');
+                // Hide navigation buttons on close
+                lightboxNavWrapper.style.display = 'none';
+            });
+
+            lightboxNavNext.addEventListener('click', function() {
+                if (!window.currentImages || window.currentImages.length === 0) return;
+                window.currentImageIndex = (window.currentImageIndex + 1) % window.currentImages.length;
+                lightboxImage.src = window.currentImages[window.currentImageIndex];
+                zoomLevel = 1;
+                lightboxImage.style.transform = `scale(1)`;
+                lightboxImage.classList.remove('zoomed');
+                lightboxImage.classList.add('zoomable');
+            });
+
+            lightboxNavPrev.addEventListener('click', function() {
+                if (!window.currentImages || window.currentImages.length === 0) return;
+                window.currentImageIndex = (window.currentImageIndex - 1 + window.currentImages.length) % window.currentImages.length;
+                lightboxImage.src = window.currentImages[window.currentImageIndex];
+                zoomLevel = 1;
+                lightboxImage.style.transform = `scale(1)`;
+                lightboxImage.classList.remove('zoomed');
+                lightboxImage.classList.add('zoomable');
+            });
+            
+            zoomInBtn.addEventListener('click', function() {
+                if (zoomLevel < maxZoom) {
+                    zoomLevel += zoomStep;
+                    lightboxImage.style.transform = `scale(${zoomLevel})`;
+                    lightboxImage.classList.add('zoomed');
+                }
+            });
+
+            zoomOutBtn.addEventListener('click', function() {
+                if (zoomLevel > minZoom) {
+                    zoomLevel -= zoomStep;
+                    lightboxImage.style.transform = `scale(${zoomLevel})`;
+                    if (zoomLevel <= minZoom) {
+                        lightboxImage.classList.remove('zoomed');
+                    }
+                }
+            });
+
+            lightboxImage.addEventListener('click', function() {
+              if (zoomLevel > 1) {
+                  zoomLevel = 1;
+                  lightboxImage.style.transform = `scale(${zoomLevel})`;
+                  lightboxImage.classList.remove('zoomed');
+              } else {
+                zoomLevel += zoomStep;
+                lightboxImage.style.transform = `scale(${zoomLevel})`;
+                lightboxImage.classList.add('zoomed');
+              }
+            });
+
+            // New fullscreen button logic
+            fullscreenBtn.addEventListener('click', function() {
+                if (lightbox.requestFullscreen) {
+                    lightbox.requestFullscreen();
+                } else if (lightbox.mozRequestFullScreen) { /* Firefox */
+                    lightbox.mozRequestFullScreen();
+                } else if (lightbox.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    lightbox.webkitRequestFullscreen();
+                } else if (lightbox.msRequestFullscreen) { /* IE/Edge */
+                    lightbox.msRequestFullscreen();
+                }
+            });
+
+            window.addEventListener('keydown', function(e) {
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'ArrowRight') {
+                        lightboxNavNext.click();
+                    } else if (e.key === 'ArrowLeft') {
+                        lightboxNavPrev.click();
+                    } else if (e.key === 'Escape') {
+                        lightboxClose.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

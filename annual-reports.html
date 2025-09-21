@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Reports & Books - Cheyutha Foundation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* Basic Reset and Global Styles (Copied from existing code) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f1e7;
+            overflow-x: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #b8ebe1;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            height: 70px;
+            max-width: 100%;
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+        
+        /* Highlight the active link for the specific page */
+        nav ul li a[href="annual-reports.html"] {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        .header-mobile-actions {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .donate-button {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+        
+        .header-mobile-actions .donate-button {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            margin-left: 0;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+        
+        .mobile-menu-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: #b8ebe1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            z-index: 150;
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+        
+        /* --- Reports & Books Page Content --- */
+        /* Keyframe animations */
+        @keyframes growAndFadeIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animated-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reports-hero-banner {
+            background: linear-gradient(#0f2027, #2c5364),url('https://placehold.co/1920x400/0f2027/2c5364?text=Reports');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .reports-hero-banner h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: growAndFadeIn 1.5s ease-out forwards;
+        }
+
+        .reports-section, .books-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .reports-section h2, .books-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .report-grid, .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .report-card, .book-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 350px;
+            opacity: 0; /* Initially hidden for animation */
+            transform: translateY(20px);
+            
+            /* New Flexbox to align content */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .report-card.fade-in, .book-card.fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .report-card::before, .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #e67e22, #f39c12);
+            transition: transform 0.5s ease-out;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+
+        .report-card:hover::before, .book-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .report-card:hover, .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .report-card h3, .book-card h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            padding-top: 1rem;
+        }
+
+        .report-card p, .book-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .report-button, .book-button {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            
+            /* Align the button at the bottom */
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+        .report-button:hover, .book-button:hover {
+            background: #d35400;
+        }
+
+        /* Added animation for the download icon */
+        .report-button .fas, .book-button .fas {
+            transition: transform 0.3s ease;
+        }
+        
+        .report-button:hover .fas, .book-button:hover .fas {
+            transform: translateY(2px);
+        }
+
+        /* --- Footer (Copied from existing code) --- */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+        
+        .footer-section .footer-links a {
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive Styles (Copied from existing code) */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .header-content {
+                width: auto;
+                justify-content: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0;
+            }
+            .logo-image {
+                height: 50px;
+            }
+            .header-name h1 {
+                font-size: 1.5rem;
+                text-align: left;
+            }
+            .nav-wrapper {
+                display: none;
+            }
+            .header-desktop-actions {
+                display: none;
+            }
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .menu-toggle {
+                display: block;
+                order: 1;
+                margin-left: auto;
+            }
+            
+            .mobile-menu-container {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #b8ebe1;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                text-align: center;
+                position: fixed;
+                left: 0;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                z-index: 150;
+            }
+
+            .mobile-menu-container.show {
+                display: flex;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 0;
+            }
+
+            nav ul li a {
+                display: inline-block;
+                padding: 15px 20px;
+                width: auto;
+                border-bottom: 3px solid transparent;
+            }
+
+            nav ul li a:hover {
+                border-bottom: none;
+            }
+            
+            nav ul li a[href="annual-reports.html"] {
+                color: #e67e22;
+                border-bottom: 3px solid #e67e22;
+            }
+
+            .donate-button {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+                margin-left: 0;
+            }
+
+            .reports-hero-banner h1 {
+                font-size: 2.5rem;
+            }
+
+            .reports-section, .books-section {
+                padding: 3rem 1rem;
+            }
+            
+            .report-card, .book-card {
+                margin-bottom: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            .footer-section ul {
+                list-style: none;
+            }
+            .social-icons {
+                justify-content: center;
+                display: flex;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-brand">
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/100x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Reports & Books</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Page Banner -->
+        <section class="reports-hero-banner">
+            <h1>Annual Reports & Books</h1>
+        </section>
+
+        <!-- Reports & Books Section -->
+        <section class="reports-section">
+            <h2 class="animated-section">Our Journey in Review</h2>
+            <div class="report-grid">
+                <!-- Example Report Card 1 -->
+                <div class="report-card">
+                    <div>
+                        <h3>Annual Report of year 2018-2019</h3>
+                        <p>A detailed overview of our initiatives, financial statements, and the impact of our programs throughout 2018. We are grateful for your support.</p>
+                    </div>
+                    <a href="Pdfs/CFOT-Annual Report-2018-19.pdf" class="report-button" target="_blank" rel="noopener noreferrer">View Report <i class="fas fa-arrow-up-right-from-square"></i></a>
+                </div>
+                
+                <!-- Example Report Card 2 -->
+                <div class="report-card">
+                    <div>
+                        <h3>Annual Report of year 2019-2020</h3>
+                        <p>Our 2019 report highlights our key milestones, patient Success Stories, and the expansion of our services across both states. Your generosity made this possible.</p>
+                    </div>
+                    <a href="Pdfs/CFOT-Annual Report-2019-20.pdf" class="report-button" target="_blank" rel="noopener noreferrer">View Report <i class="fas fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <!-- Example Report Card 3 -->
+                <div class="report-card">
+                    <div>
+                        <h3>Annual Report of year 2020-2021</h3>
+                        <p>Explore our progress in 2020, including our education and patient support programs. Read about how we empowered lives in our community.</p>
+                    </div>
+                    <a href="Pdfs/CFOT-Annual Report-2020-21.pdf" class="report-button" target="_blank" rel="noopener noreferrer">View Report <i class="fas fa-arrow-up-up-right-from-square"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Books Section -->
+        <section class="books-section">
+            <h2 class="animated-section">Books & Publications</h2>
+            <div class="books-grid">
+                <!-- Example Book Card 1 -->
+                <div class="book-card">
+                    <div>
+                        <h3>"Free Nutrition Guides in English"</h3>
+                        <p>This comprehensive guide provides essential information for patients and their families, covering everything from pre-transplant preparation to post-operative care.</p>
+                    </div>
+                    <a href="Pdfs/Nutritional Secrets English.pdf" class="book-button" target="_blank" rel="noopener noreferrer">Download Book <i class="fas fa-download"></i></a>
+                </div>
+                
+                <!-- Example Book Card 2 -->
+                <div class="book-card">
+                    <div>
+                        <h3>"Free Nutrition Guides in Telugu"</h3>
+                        <p>A collection of inspiring stories and practical advice from individuals who have undergone successful organ transplants, sharing their experiences and new lease on life.</p>
+                    </div>
+                    <a href="Pdfs/Nutritional Secrets Telugu.pdf" class="book-button" target="_blank" rel="noopener noreferrer">Download Book <i class="fas fa-download"></i></a>
+                </div>
+
+                <!-- Example Book Card 3 -->
+                <div class="book-card">
+                    <div>
+                        <h3>"Free Nutrition Guides in Hindi"</h3>
+                        <p>This book delves into the importance of organ donation, dispelling myths and providing a clear understanding of the process. It's an excellent resource for anyone considering donation.</p>
+                    </div>
+                    <a href="Pdfs/Nutritional Secrets Hindi.pdf" class="book-button" target="_blank" rel="noopener noreferrer">Download Book <i class="fas fa-download"></i></a>
+                </div>
+
+                <div class="book-card">
+                    <div>
+                        <h3>"Free Nutrition Guides in Hindi"</h3>
+                        <p>This book delves into the importance of organ donation, dispelling myths and providing a clear understanding of the process. It's an excellent resource for anyone considering donation.</p>
+                    </div>
+                    <a href="Pdfs/Nutritional Secrets Hindi.pdf" class="book-button" target="_blank" rel="noopener noreferrer">Download Book <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about-us.html">About Us</a>
+                    <a href="our-work.html">Success Stories</a>
+                    
+                    <a href="patient-support.html">Patient Support</a>
+                    <a href="get-involved.html">Get Involved</a>
+                    <a href="news-events.html">News & Events</a>
+                    <a href="annual-reports.html">Reports & Books</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/18bdMJnMz5/" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@cheyuthafoundationfororgan4570?feature=shared" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/cfotindia" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+            
+            if (mobileMenu && mobileMenuContainer) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenuContainer.classList.toggle('show');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+
+            // Fix for mobile menu positioning on resize
+            const header = document.querySelector('header');
+            const mobileMenuNavContainer = document.querySelector('.mobile-menu-container');
+
+            function adjustMobileMenuPosition() {
+                const headerHeight = header.offsetHeight;
+                mobileMenuNavContainer.style.top = `${headerHeight}px`;
+            }
+
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+
+            // Highlight the active navigation link based on the page URL
+            const navLinks = document.querySelectorAll('nav a');
+            const currentPath = window.location.pathname.split('/').pop();
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.style.color = '#e67e22';
+                    link.style.borderBottom = '3px solid #e67e22';
+                }
+            });
+
+            // Intersection Observer for animations
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const reportCards = document.querySelectorAll('.report-card');
+            const bookCards = document.querySelectorAll('.book-card');
+
+            const appearOptions = {
+                threshold: 0.2
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            const cardsObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Stagger the animation for each card
+                        document.querySelectorAll('.report-card, .book-card').forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('fade-in');
+                            }, index * 200);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            animatedSections.forEach(section => {
+                appearOnScroll.observe(section);
+            });
+
+            if (reportCards.length > 0) {
+                cardsObserver.observe(document.querySelector('.report-grid'));
+            }
+            if (bookCards.length > 0) {
+                cardsObserver.observe(document.querySelector('.books-grid'));
+            }
+        });
+    </script>
+</body>
+</html>

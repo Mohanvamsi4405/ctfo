@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Cheyutha Foundation for Organ Transplants</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter font from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* CSS variables for consistent theming */
+        :root {
+            --primary-color: #e67e22; /* Orange */
+            --secondary-color: #42b6a9; /* Teal */
+            --dark-blue: #1e3a5f;
+            --light-bg: #f8f9fa;
+            --alt-bg: #fdfcf9;
+            --text-color: #333;
+            --light-text: #fff;
+            --header-bg: #b8ebe1;
+            --footer-bg: #2c3e50;
+        }
+
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        /* --- Header: Consistent across all pages --- */
+        header {
+            background: var(--header-bg);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            /* Consistent logo size from index.html */
+            height: 70px;
+            max-width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05);
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        /* Desktop navigation and donate button */
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-grow: 1;
+            gap: 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Active link styling for this page */
+        nav ul li a[href="about-us.html"] {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Mobile-specific header actions */
+        .header-mobile-actions {
+            display: none; /* Hidden by default on desktop */
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            display: none; /* Hidden by default on desktop */
+            cursor: pointer;
+            font-size: 1.5rem;
+            align-self: center;
+            color: var(--text-color);
+        }
+
+        /* Donate Button Styles */
+        .donate-button {
+            background: linear-gradient(45deg, var(--primary-color), #f39c12);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, var(--primary-color));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+        
+        /* Mobile menu container that is hidden by default */
+        .mobile-menu-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: var(--header-bg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            z-index: 150;
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+        
+        /* Corrected styling for mobile menu links */
+        .mobile-menu-container nav ul {
+            flex-direction: column;
+            width: 100%;
+            padding: 1rem 0;
+        }
+
+        .mobile-menu-container nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-menu-container nav ul li a {
+            padding: 15px 20px;
+            width: auto;
+            /* Changed to inline-block to make border fit content */
+            display: inline-block;
+            border-bottom: 3px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+        
+        /* Highlight active link in mobile menu with border only under the word */
+        .mobile-menu-container nav ul li a[href="about-us.html"] {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* --- Animations on Scroll --- */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animated-section.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- ABOUT US PAGE SPECIFIC STYLES --- */
+        .hero-about {
+            background: linear-gradient(135deg, #b8ebe1 0%, #f8f1e7 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .hero-about h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            line-height: 1.1;
+            text-shadow: none;
+        }
+
+        .hero-about p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-color);
+        }
+
+        .page-section {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .page-section.alt-bg {
+            background-color: var(--alt-bg);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+        
+        .content-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .history-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .history-content .section-title {
+            text-align: left;
+            margin: 0;
+        }
+
+        .history-content .section-title::after {
+            margin: 1rem 0 0;
+        }
+
+        /* Justified text for main content paragraphs */
+        .content-container p,
+        .content-container ul {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: justify;
+        }
+        
+        /* Left align team/founder descriptions for better readability in smaller boxes */
+        .team-member-details p, .founder-card p.description {
+            text-align: left;
+        }
+
+        .history-logo {
+            max-width: 30%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.5), 0 0 20px rgba(230, 126, 34, 0.3), 0 0 30px rgba(230, 126, 34, 0.1);
+            flex-shrink: 0;
+            object-fit: cover;
+            max-height: 400px;
+            margin-top: 2rem;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px var(--primary-color);
+            }
+            to {
+                box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+            }
+        }
+        
+        .history-text {
+            flex-grow: 1;
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .mission-vision-grid h3 {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .mission-vision-grid p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        /* Mission card and Vision card */
+        .mission-card,
+        .vision-card {
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .vision-card {
+            border-color: var(--secondary-color);
+        }
+
+        .mission-card:hover,
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Updated team layout CSS */
+        .team-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member-item {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            text-align: left;
+            border: 2px solid transparent;
+        }
+
+        .team-member-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .team-member-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            margin-right: 1.5rem;
+            transition: border-color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .team-member-item:hover img {
+            border-color: var(--secondary-color);
+        }
+
+        .team-member-details {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .team-member-details h4 {
+            font-size: 1.4rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .team-member-details p.title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member-details p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Updated design for the founder section */
+        .founder-co-founder-section {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .founder-card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .founder-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .founder-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .founder-card h4 {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-card p.title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .founder-card p.description {
+            font-size: 1rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        .partners-logo-grid {
+            margin-top: 3rem;
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .logo-wrapper {
+            display: flex;
+            animation: scroll-left 40s linear infinite;
+        }
+
+        .partners-logo-grid:hover .logo-wrapper {
+            animation-play-state: paused;
+        }
+
+        .partners-logo-grid img {
+            max-width: 150px;
+            height: auto;
+            margin: 0 2rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .partners-logo-grid img:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* --- Footer --- */
+        footer {
+            background: var(--footer-bg);
+            color: var(--light-text);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Specific styling for the Quick Links list to remove dots and set text color to white */
+        .footer-section .quick-links-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section .quick-links-list a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-section .quick-links-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+
+        /* --- RESPONSIVE STYLES --- */
+        @media (min-width: 769px) {
+            .header-mobile-actions {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .header-brand {
+                width: auto;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .logo-image {
+                /* New, smaller logo size for mobile view */
+                height: 50px; 
+            }
+            .header-name h1 {
+                font-size: 1.5rem;
+            }
+            .header-desktop-actions {
+                display: none;
+            }
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .menu-toggle {
+                display: block;
+                order: 2;
+                margin-left: auto;
+            }
+            .donate-button {
+                display: block; /* Show donate button in mobile header */
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+                margin-left: 0;
+            }
+            .hero-about {
+                padding: 5rem 1rem;
+                background: linear-gradient(135deg, #b8ebe1 0%, #f8f1e7 100%);
+            }
+            .hero-about h1 {
+                /* New mobile heading size, consistent with the logo name */
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+                color: var(--primary-color);
+            }
+            .hero-about p {
+                font-size: clamp(0.9rem, 3vw, 1.2rem);
+                max-width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                color: var(--text-color);
+            }
+            .history-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .history-logo {
+                max-width: 100%;
+                margin-bottom: 2rem;
+            }
+            .history-content .section-title {
+                text-align: center;
+            }
+            .history-content .section-title::after {
+                margin: 1rem auto 0;
+            }
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+            }
+            /* Fix for team and founder sections to ensure they stack on mobile */
+            .team-cards-grid,
+            .founder-co-founder-section {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            /* Adjustments for team and founder cards */
+            .team-member-item,
+            .founder-card,
+            .co-founder-card {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            /* Adjust card paddings and spacing for a more compact mobile layout */
+            .mission-card,
+            .vision-card {
+                padding: 1.5rem;
+            }
+            
+            .founder-card {
+                padding: 1rem;
+            }
+
+            .team-member-item {
+                padding: 1rem;
+            }
+
+            .team-member-item img {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .founder-card img,
+            .co-founder-card img {
+                margin-bottom: 1rem;
+            }
+
+            .team-member-details h4,
+            .founder-card h4,
+            .co-founder-card h4 {
+                font-size: 1.2rem;
+            }
+
+            .team-member-details p,
+            .founder-card p.description {
+                font-size: 0.9rem;
+            }
+
+            .founder-card .details,
+            .co-founder-card .details {
+                text-align: center;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            .footer-section ul {
+                list-style: none;
+                padding: 0;
+            }
+            .footer-links a {
+                display: block;
+            }
+            .social-icons {
+                justify-content: center;
+                display: flex;
+                gap: 15px;
+            }
+            /* Added text-align: justify for mobile view where appropriate */
+            .history-content .history-text p,
+            .mission-vision-grid p,
+            .founder-card p.description,
+            .co-founder-card p.description {
+                text-align: justify;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header section with logo, desktop navigation, and mobile menu toggle -->
+    <header>
+        <div class="header-brand">
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/100x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+        <!-- Desktop navigation -->
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+        <!-- Mobile-specific header actions -->
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile menu container, outside of the header -->
+    <div class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Reports & Books</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <main>
+        <section class="hero-about animated-section">
+            <h1>About Cheyutha Foundation</h1>
+            <p>Our journey is built on compassion, resilience, and an unwavering commitment to empower lives and build a supportive community for kidney patients.</p>
+        </section>
+        <section id="history" class="page-section animated-section">
+            <div class="content-container">
+                <div class="history-content">
+                    <img src="Logos and Helping Hand/logo.png" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e67e22/ffffff?text=Logo';" alt="Cheyutha Foundation Logo" class="history-logo">
+                    <div class="history-text">
+                        <h2 class="section-title">A Journey of Hope: Our History</h2>
+                        <p>Cheyutha Foundation for Organ Transplants (CFOT) was founded in 2015 by a group of dedicated renal transplant recipients who understood the unique challenges faced by kidney patients. They recognized a critical need for a supportive community and reliable resources that went beyond medical treatment alone. In January 2018, the foundation was formally incorporated as a society, solidifying our mission to provide comprehensive care. Our journey began with a simple goal: to be the support system we wished we had. Since then, we have grown to become the first social organization of its kind in Telangana and Andhra Pradesh, touching the lives of over a thousand patients and their families. This is a story of patients helping patients, and it continues to be our guiding principle.</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="mission-vision" class="page-section animated-section alt-bg">
+            <div class="content-container">
+                <h2 class="section-title">Our Mission & Vision</h2>
+                <div class="mission-vision-grid">
+                    <div class="mission-card animated-section">
+                        <h3><i class="fas fa-hand-holding-medical"></i> Our Mission</h3>
+                        <p>To create a robust system that facilitates awareness about organ failure issues, prevention of the cause, identification of the disease, employment for qualified patients, medical treatment, and rehabilitation for kidney recipients and dialysis patients. We are a community consisting of patients, family members, doctors, and other stakeholders, all working together to provide comprehensive support and care.</p>
+                    </div>
+                    <div class="vision-card animated-section" style="animation-delay: 0.2s;">
+                        <h3><i class="fas fa-heart-pulse"></i> Our Vision</h3>
+                        <p>To build a world where every person facing kidney disease and organ failure has access to the support, resources, and community they need to live a healthy and fulfilling life. We aim to be a beacon of hope, providing financial assistance, medical guidance, and emotional support to ensure that no one battles this disease alone.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="founder-profile" class="page-section animated-section">
+            <div class="content-container">
+                <h2 class="section-title">Meet Our Founder</h2>
+                <div class="founder-co-founder-section">
+                    <div class="founder-card animated-section">
+                        <img src="Founder-CoFounder Images/Bhagavan.jpg" onerror="this.onerror=null;this.src='https://placehold.co/150x150/e67e22/ffffff?text=Bhagawan+Reddy';" alt="Bhagawan Reddy">
+                        <div class="details">
+                            <h4>Bhagawan Reddy</h4>
+                            <p class="title">Founder & President</p>
+                            <p class="description">From the Founder's Desk: Cheyutha Foundation for Organ Transplants (CFOT) is for people like me, whose lives have been changed irrevocably owing to kidney disease. I was diagnosed with polycystic kidney disease during my student days. The discovery traumatized my entire family... I battled with the disease for some time and managed to undergo a transplant when my aunt donated her kidney. She is my savior. She gave my life back. It was a tumultuous journey. This journey made me go through the trauma of dialysis patients and kidney transplant recipients. I experienced the difficulty in managing finances for medical care, pre- and post- transplant challenges, unemployment, long cycles of treatment, the subdued life and a lot more. In fact, a near unsurmountable wall of challenges. It led me to think, to rise and to extend a hand to support organ receivers. That's how Cheyutha Foundation for Organ Transplants was born.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="team" class="page-section animated-section">
+            <div class="content-container">
+                <h2 class="section-title">Our Dedicated Team</h2>
+                <p style="text-align: center; margin-bottom: 3rem; color: #555;">We are a passionate team of volunteers, most of whom are transplant recipients or family members of patients, dedicated to making a tangible difference.</p>
+                <div class="team-cards-grid">
+                    <div class="team-member-item animated-section">
+                        <img src="Founder-CoFounder Images/Soumya1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/e67e22/ffffff?text=Soumya';" alt="Team Member Name">
+                        <div class="team-member-details">
+                            <h4>Soumya</h4>
+                            <p class="title">Joint secretory</p>
+                            <p>Soumya is our go-to person for patient queries, offering round-the-clock guidance and emotional support to patients and families. With her compassionate nature and dedication, she ensures that no patient feels alone in their journey.</p>
+                        </div>
+                    </div>
+                    <div class="team-member-item animated-section" style="animation-delay: 0.2s;">
+                        <img src="Founder-CoFounder Images/Jagadeeshwar.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/e67e22/ffffff?text=Jagadeeshwar';" alt="Team Member Name">
+                        <div class="team-member-details">
+                            <h4>Jagadeeshwar Reddy</h4>
+                            <p class="title">Treasurer</p>
+                            <p>As Treasurer, Jagadeeshwar Reddy not only manages the financial discipline of CFOT but also takes an active role in organizing events and workshops. His strong connect with hospitals and local communities helps us expand our reach and impact.</p>
+                        </div>
+                    </div>
+                    <div class="team-member-item animated-section" style="animation-delay: 0.4s;">
+                        <img src="Founder-CoFounder Images/K Vijaya Lakshmi.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/e67e22/ffffff?text=K.Vijaya+Lakshmi';" alt="Team Member Name">
+                        <div class="team-member-details">
+                            <h4>K Vijaya Lakshmi</h4>
+                            <p class="title">General Secretory</p>
+                            <p>K. Vijaya Lakshmi is an invaluable member of our volunteer team, always at the forefront of events and outreach programs. Her commitment, energy, and hands-on support strengthen the foundation’s mission to spread awareness and extend help.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="partners" class="page-section animated-section alt-bg">
+            <div class="content-container">
+                <h2 class="section-title">Our Valued Partners</h2>
+                <p style="text-align: center; margin-bottom: 3rem; color: #555;">We are proud to collaborate with leading hospitals, foundations, and corporate partners who share our commitment to improving patient lives.</p>
+                <div class="partners-logo-grid">
+                    <div class="logo-wrapper">
+                        <img src="Partners/1.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+1';" alt="Partner Logo 1">
+                        <img src="Partners/2.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/42b6a9/ffffff?text=Partner+2';" alt="Partner Logo 2">
+                        <img src="Partners/3.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/1e3a5f/ffffff?text=Partner+3';" alt="Partner Logo 3">
+                        <img src="Partners/4.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+4';" alt="Partner Logo 4">
+                        <img src="Partners/5.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/42b6a9/ffffff?text=Partner+5';" alt="Partner Logo 5">
+                        <img src="Partners/6.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/1e3a5f/ffffff?text=Partner+6';" alt="Partner Logo 6">
+                        <img src="Partners/7.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+7';" alt="Partner Logo 7">
+                        <img src="Partners/8.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/42b6a9/ffffff?text=Partner+8';" alt="Partner Logo 8">
+                        <img src="Partners/9.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/1e3a5f/ffffff?text=Partner+9';" alt="Partner Logo 9">
+                        <img src="Partners/10.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+10';" alt="Partner Logo 10">
+                        <!-- Duplicate images for seamless scroll effect -->
+                        <img src="Partners/1.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+1';" alt="Partner Logo 1">
+                        <img src="Partners/2.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/42b6a9/ffffff?text=Partner+2';" alt="Partner Logo 2">
+                        <img src="Partners/3.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/1e3a5f/ffffff?text=Partner+3';" alt="Partner Logo 3">
+                        <img src="Partners/4.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+4';" alt="Partner Logo 4">
+                        <img src="Partners/5.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/42b6a9/ffffff?text=Partner+5';" alt="Partner Logo 5">
+                        <img src="Partners/6.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/1e3a5f/ffffff?text=Partner+6';" alt="Partner Logo 6">
+                        <img src="Partners/7.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+7';" alt="Partner Logo 7">
+                        <img src="Partners/8.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/42b6a9/ffffff?text=Partner+8';" alt="Partner Logo 8">
+                        <img src="Partners/9.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/1e3a5f/ffffff?text=Partner+9';" alt="Partner Logo 9">
+                        <img src="Partners/10.png" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e67e22/ffffff?text=Partner+10';" alt="Partner Logo 10">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <h2 class="section-title">Special Thanks To Kiran Pharma</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: #555;">With the support of his family, we established Kiran Pharma to honor his dream of serving patients. Through this initiative, we aim to provide medicines at subsidized costs, ensuring accessibility and relief for those in need.</p>
+        </section>
+        
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i>4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> +91 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="quick-links-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/18bdMJnMz5/" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@cheyuthafoundationfororgan4570?feature=shared" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/cfotindia" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle: Toggles the visibility of the mobile navigation menu.
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+            const header = document.querySelector('header');
+            
+            // This function ensures the mobile menu's top position is always correct.
+            function adjustMobileMenuPosition() {
+                if (mobileMenuContainer && header) {
+                    const headerHeight = header.offsetHeight;
+                    mobileMenuContainer.style.top = `${headerHeight}px`;
+                }
+            }
+
+            if (mobileMenu && mobileMenuContainer && header) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenuContainer.classList.toggle('show');
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                    // Recalculate position on click to handle any dynamic changes
+                    adjustMobileMenuPosition();
+                });
+            }
+
+            // Call the function on page load and resize events to handle changes in screen size or header content.
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+
+            // Intersection Observer for animations: Adds a 'visible' class when an element enters the viewport.
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const appearOptions = {
+                threshold: 0.2
+            };
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            animatedSections.forEach(element => {
+                appearOnScroll.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

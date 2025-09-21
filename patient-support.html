@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Support - Cheyutha Foundation</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f1e7;
+            overflow-x: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #b8ebe1;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Container for the logo and name */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            height: 70px;
+            max-width: 100%;
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        /* Desktop Header Actions (formerly nav-wrapper) */
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+        
+        /* Highlight the active link for the Patient Support page */
+        nav ul li a[href="patient-support.html"] {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+        
+        /* Mobile Header Actions */
+        .header-mobile-actions {
+            display: none; /* Hidden by default on desktop */
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .donate-button {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+        
+        .header-mobile-actions .donate-button {
+             padding: 0.5rem 1.2rem;
+             font-size: 0.75rem;
+             margin-left: 0;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+        
+        /* Mobile menu container that is hidden by default */
+        .mobile-menu-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: #b8ebe1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            z-index: 150;
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 5rem 0;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .full-width-container {
+            width: 100%;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 900px; /* Decreased max-width for smaller content area */
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem; /* Reduced margin */
+            padding: 2rem 0; /* Reduced padding */
+        }
+        
+        .page-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .page-tab-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #2c3e50;
+            background-color: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+
+        .page-tab-button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* Color gradients for tabs */
+        .page-tab-button[data-tab-id="services"] { background: linear-gradient(135deg, #e6f7ff 0%, #d5f0ff 100%); }
+        .page-tab-button[data-tab-id="schemes"] { background: linear-gradient(135deg, #f0e6ff 0%, #e6d8ff 100%); }
+        .page-tab-button[data-tab-id="legal"] { background: linear-gradient(135deg, #e6fff0 0%, #d8ffeb 100%); }
+        .page-tab-button[data-tab-id="railways"] { background: linear-gradient(135deg, #fff2e6 0%, #ffe8d8 100%); }
+        .page-tab-button[data-tab-id="tax"] { background: linear-gradient(135deg, #fff8e6 0%, #fff0d8 100%); }
+
+        /* Style for the active tab button */
+        .page-tab-button.active {
+            box-shadow: 0 0 0 3px #e67e22, 0 6px 20px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+            color: #d35400;
+        }
+
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #003366;
+            margin-bottom: 1rem;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 0.9rem; /* Decreased font-size for a more concise look */
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 4rem;
+            max-width: 450px; /* Decreased max-width for smaller text block */
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(45deg, #d35400, #e67e22);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .small-cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+            padding: 0.8rem 1.6rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+        
+        .small-cta-button:hover {
+            background: linear-gradient(45deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .sub-section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Services Section */
+        #services {
+            background: #fff;
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 0 2rem 4rem 2rem;
+        }
+        
+        .services-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            justify-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-list-item {
+            position: relative;
+            background: #fcfcfc;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.6s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            position: relative;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+        
+        .service-list-item.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .service-list-item::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 20px;
+            z-index: -1;
+            background-size: 400% 400%;
+            animation: pastelBorderMove 8s ease infinite;
+        }
+        
+        .service-list-item[data-card-id="service-1"]::before { background: linear-gradient(135deg, #e6f7ff 0%, #d5f0ff 100%); }
+        .service-list-item[data-card-id="service-2"]::before { background: linear-gradient(135deg, #f0e6ff 0%, #e6d8ff 100%); }
+        .service-list-item[data-card-id="service-3"]::before { background: linear-gradient(135deg, #fff2e6 0%, #ffe8d8 100%); }
+        .service-list-item[data-card-id="service-4"]::before { background: linear-gradient(135deg, #e6fff0 0%, #d8ffeb 100%); }
+
+
+        .service-list-item h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-list-item p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Resources Section */
+        #resources {
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .resource-card {
+            background: #fff; /* Changed to match other cards */
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.6s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            position: relative;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+
+        .resource-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .resource-card::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 20px;
+            z-index: -1;
+            background-size: 400% 400%;
+            animation: pastelBorderMove 8s ease infinite;
+        }
+
+        /* Updated resource card gradients to match service cards */
+        .resource-card[data-card-id="resource-1"]::before { background: linear-gradient(135deg, #e6f7ff 0%, #d5f0ff 100%); }
+        .resource-card[data-card-id="resource-2"]::before { background: linear-gradient(135deg, #f0e6ff 0%, #e6d8ff 100%); }
+        .resource-card[data-card-id="resource-3"]::before { background: linear-gradient(135deg, #fff2e6 0%, #ffe8d8 100%); }
+
+        .resource-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-card i {
+            font-size: 3rem;
+            color: #e67e22;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #003366;
+        }
+        
+        .resource-card a {
+            text-decoration: none;
+            color: #003366;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s;
+            display: block; /* Make the entire card a clickable link area */
+            padding: 2rem;
+            margin: -2rem; /* Negate the padding to make it fill the card */
+            border-radius: 15px;
+        }
+        
+        .resource-card a:hover {
+            color: #d35400;
+        }
+        
+        /* Adjustments for the inner content of the links */
+        .resource-card a h3,
+        .resource-card a p,
+        .resource-card a i {
+            margin: 0;
+            color: inherit;
+        }
+        
+        .resource-card a h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Call to Action Section */
+        #call-to-action {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #b8ebe1 0%, #a4d8cc 100%);
+            border-radius: 15px;
+            margin-bottom: 4rem;
+        }
+        
+        #call-to-action h2 {
+            font-size: 2rem;
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+        
+        #call-to-action p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* New sections styling */
+        .info-section {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 0 2rem 4rem 2rem;
+        }
+
+        .info-card {
+            background: #fcfcfc;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.6s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            position: relative;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+        
+        .info-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Gradient borders for the new info cards */
+        .info-card::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 20px;
+            z-index: -1;
+            background-size: 400% 400%;
+            animation: pastelBorderMove 8s ease infinite;
+        }
+
+        /* Updated info card gradients to match service cards */
+        .info-card[data-card-id="scheme-1"]::before { background: linear-gradient(135deg, #e6f7ff 0%, #d5f0ff 100%); }
+        .info-card[data-card-id="scheme-2"]::before { background: linear-gradient(135deg, #f0e6ff 0%, #e6d8ff 100%); }
+        .info-card[data-card-id="rail-1"]::before { background: linear-gradient(135deg, #fff2e6 0%, #ffe8d8 100%); }
+        .info-card[data-card-id="tax-1"]::before { background: linear-gradient(135deg, #e6fff0 0%, #d8ffeb 100%); }
+        .info-card[data-card-id="tax-2"]::before { background: linear-gradient(135deg, #f0e6ff 0%, #e6d8ff 100%); }
+        .info-card[data-card-id="tax-3"]::before { background: linear-gradient(135deg, #fff2e6 0%, #ffe8d8 100%); }
+        .info-card[data-card-id="legal-1"]::before { background: linear-gradient(135deg, #ffc0cb 0%, #e0b0ff 100%); }
+        .info-card[data-card-id="legal-2"]::before { background: linear-gradient(135deg, #e0b0ff 0%, #ffc0cb 100%); }
+
+
+        .info-card h3 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .info-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .info-card li::before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: #27ae60;
+        }
+        
+        .info-card p, .info-card li {
+            line-height: 1.6;
+        }
+        
+        /* Styles for railway concession and tax benefits */
+        .info-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .info-card-grid .info-card {
+            margin-bottom: 0;
+        }
+        
+        .info-card a.cta-button {
+            margin-top: 1rem; /* Adjust margin for smaller buttons */
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+        
+        .footer-section .footer-links a {
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+
+        .footer-section ul {
+            list-style-type: none; /* Removed the list item dots */
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pastelBorderMove {
+            0%, 100% {
+                background-position: 0% 100%
+            }
+            50% {
+                background-position: 100% 0%;
+            }
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row; /* Keep the logo and menu on one line */
+                align-items: center;
+                justify-content: space-between;
+            }
+            .header-brand {
+                width: auto;
+                justify-content: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0;
+            }
+            .logo-image {
+                height: 50px;
+            }
+            .header-name h1 {
+                font-size: 1.5rem;
+                text-align: left;
+            }
+            .header-desktop-actions {
+                display: none; /* Hide desktop nav on mobile */
+            }
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .menu-toggle {
+                display: block;
+                order: 1;
+                margin-left: auto;
+            }
+            
+            /* Styles for the mobile menu container */
+            .mobile-menu-container {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #b8ebe1;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                text-align: center;
+                position: fixed;
+                left: 0;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                z-index: 150;
+            }
+
+            .mobile-menu-container.show {
+                display: flex;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            /* Corrected mobile menu link styling */
+            nav ul li {
+                margin: 0;
+                padding: 0;
+            }
+
+            nav ul li a {
+                display: inline-block;
+                padding: 15px 20px;
+                width: auto;
+                border-bottom: 3px solid transparent; /* Set transparent border by default */
+            }
+
+            nav ul li a:hover {
+                border-bottom: none;
+            }
+            
+            /* Apply the orange line only to the active link */
+            nav ul li a[href="patient-support.html"] {
+                color: #e67e22;
+                border-bottom: 3px solid #e67e22;
+            }
+            
+            .donate-button {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+                margin-left: 0;
+            }
+            
+            main {
+                padding: 3rem 1rem;
+            }
+            .page-title {
+                font-size: 2.2rem;
+            }
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            .service-item {
+                padding: 2rem;
+            }
+            .service-item h3 {
+                font-size: 1.4rem;
+            }
+            .resource-card h3 {
+                font-size: 1.2rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .services-grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-brand">
+            <!-- Updated logo with fallback placeholder -->
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/100x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+
+        <!-- Desktop navigation container -->
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+
+        <!-- Mobile-specific header actions -->
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile menu container, outside of the header -->
+    <div class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Reports & Books</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Patient Support</h1>
+                <p class="page-subtitle">We are here to support you through your journey with kidney disease and organ transplant. We offer help every step of the way.</p>
+                
+                
+                <!-- New tabs for quick navigation -->
+                <div class="page-tabs">
+                    <a href="#services" class="page-tab-button" data-tab-id="services">Our Services</a>
+                    <a href="#state-schemes" class="page-tab-button" data-tab-id="schemes">Health Schemes</a>
+                    <a href="#legal-info" class="page-tab-button" data-tab-id="legal">Legal Info</a>
+                    <a href="#railway-concession" class="page-tab-button" data-tab-id="railways">Railways</a>
+                    <a href="#tax-benefits" class="page-tab-button" data-tab-id="tax">Tax Benefits</a>
+                </div>
+            </div>
+        </div>
+
+        <section id="services" class="info-section">
+            <h2 class="section-title animated-section">Our Services</h2>
+            <div class="services-grid-container">
+                <div class="service-list-item" data-card-id="service-1">
+                    <h3>Early Detection & Awareness Camps</h3>
+                    <p>We aim to prevent kidney disease by identifying it early and educating the public. Our camps reach vulnerable communities and young adults who may not prioritize health checks.</p>
+                </div>
+                <div class="service-list-item" data-card-id="service-2">
+                    <h3>Promoting Kidney Transplants</h3>
+                    <p>We encourage dialysis patients to opt for transplants as a long-term solution by providing information, resources, and emotional support. This includes free dialysis belts, nutritional supplements, and pre-transplant counseling.</p>
+                </div>
+                <div class="service-list-item" data-card-id="service-3">
+                    <h3>Post-Transplant Patient Education</h3>
+                    <p>Our program ensures patients are well-informed about long-term care, helping them maintain their health and quality of life after a transplant. We provide guidance on diet, exercise, and medication management.</p>
+                </div>
+                <div class="service-list-item" data-card-id="service-4">
+                    <h3>Corporate & Community Partnerships</h3>
+                    <p>We collaborate with corporate partners and the community to secure funding and resources that directly benefit patients and raise public awareness. This includes managing night shelters for traveling patients and organizing sports events to advocate for organ donation.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="Pdfs/Kidney Care Initiative Briefing.pdf" class="small-cta-button" target="_blank" rel="noopener noreferrer">Download All Service Info <i class="fas fa-download ml-2"></i></a>
+            </div>
+        </section>
+
+        <section id="state-schemes" class="info-section">
+            <h2 class="section-title animated-section">Government Health Schemes</h2>
+            <div class="info-card-grid">
+                <div class="info-card" data-card-id="scheme-1">
+                    <h3>Telangana: BPL Patients</h3>
+                    <p><strong>Scheme:</strong> Arogya Sri / BPL card Holders Health scheme</p>
+                    <h4>For Dialysis Patients:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Pension of Rs. 2016/-</li>
+                        <li><i class="fas fa-check"></i> Free Bus Route pass</li>
+                        <li><i class="fas fa-check"></i> Free dialysis with iron and Erythropoietin Injections</li>
+                    </ul>
+                    <h4>For Transplant Recipients:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Transplant surgery is free at Gandhi, Osmania, and NIMS hospitals. (For non-Arogya Sree patients, surgery is free with a Chief Minister's Camp Office letter - CMCO Letter).</li>
+                        <li><i class="fas fa-check"></i> Immunosuppressive drugs (Tacrolimus, MMF) are provided free of cost, worth up to Rs. 30,000/- every month.</li>
+                    </ul>
+                </div>
+                <div class="info-card" data-card-id="scheme-2">
+                    <h3>Andhra Pradesh</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Pension:</strong> Rs. 10,000 for patients diagnosed with CKD, undergoing dialysis, or having received a transplant.</li>
+                        <li><i class="fas fa-check"></i> <strong>Free Dialysis:</strong> Provided free of charge in select hospitals under the state health scheme.</li>
+                        <li><i class="fas fa-check"></i> <strong>Kidney Transplant:</strong> Available free of charge in a few designated hospitals.</li>
+                    </ul>
+                    <a href="Pdfs/Andha Pradesh .pdf" class="cta-button" target="_blank" rel="noopener noreferrer" style="padding: 0.8rem 1.6rem; font-size: 0.9rem;">Download Scheme Details <i class="fas fa-download ml-2"></i></a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="legal-info" class="info-section">
+            <h2 class="section-title animated-section">Legal Framework & Related Information</h2>
+            <div class="info-card-grid">
+                <div class="info-card" data-card-id="legal-1">
+                    <h3>Acts, Rules & Government Orders</h3>
+                    <p>The legal framework for organ transplantation in India is governed by a series of important acts, rules, and government orders to ensure ethical and legal practices.</p>
+                    <ul>
+                        <li><i class="fas fa-balance-scale"></i> Transplantation of Human Organs Act 1994</li>
+                        <li><i class="fas fa-balance-scale"></i> Transplantation of Human Organs Rule 2008</li>
+                        <li><i class="fas fa-file-alt"></i> THO Amendment Bill 2011</li>
+                        <li><i class="fas fa-gavel"></i> THO Amendment Act 2011</li>
+                        <li><i class="fas fa-file-alt"></i> THO Rules 2014</li>
+                        <li><i class="fas fa-scroll"></i> THO FORMS</li>
+                        <li><i class="fas fa-landmark"></i> Lok Sabha Discussion on Organ Donation</li>
+                    </ul>
+                </div>
+                <div class="info-card" data-card-id="legal-2">
+                    <h3>Brain Death & Body Donation</h3>
+                    <p>Brain death is the irreversible cessation of all functions of the entire brain, including the brainstem. It is a legal and medical determinant of death. It is crucial to distinguish this from a coma or a persistent vegetative state. Body donation, on the other hand, is the donation of one's entire body after death for scientific research and education.</p>
+                    <ul>
+                        <li><i class="fas fa-brain"></i> Brain Death</li>
+                        <li><i class="fas fa-hand-holding-heart"></i> Body Donation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="railway-concession" class="info-section">
+            <h2 class="section-title animated-section">Railway Concession for Kidney Patients</h2>
+            <div class="info-card-grid">
+                <div class="info-card" data-card-id="rail-1">
+                    <h3>Concession in Train Fares</h3>
+                    <p>The Ministry of Railways offers a concession on basic mail/express fares to kidney patients and their escorts for travel related to dialysis or kidney transplant operations at recognized hospitals. The concession is also applicable for the return journey.</p>
+                    <p><strong>Concession Details:</strong></p>
+                    <ul>
+                        <li><i class="fas fa-train"></i> <strong>75% concession:</strong> In First, AC 3-tier, AC Chair Car Sleeper & Second class.</li>
+                        <li><i class="fas fa-train"></i> <strong>50% concession:</strong> In AC First & AC-2 Tier Sleeper.</li>
+                    </ul>
+                    <p>One escort traveling with the patient is also eligible for the same concession. The concession is granted directly by the Station Master upon production of a prescribed certificate from the hospital. Please note, this concession is not applicable to Rajdhani, Shatabdi, or Jan Shatabi trains.</p>
+                    <p>This initiative has been in effect for tickets issued from 1.4.2003 onwards.</p>
+                    <a href="Pdfs/Rail Concession Certificate.pdf" class="cta-button" target="_blank" rel="noopener noreferrer">
+                        Download Concession Form <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="tax-benefits" class="info-section">
+            <h2 class="section-title animated-section">Tax Benefits for Donations</h2>
+            <div class="info-card-grid">
+                <div class="info-card" data-card-id="tax-1">
+                    <h3>For Indian Nationals</h3>
+                    <p>Your donations can help us save many lives. As a noble deed, you can avail a <strong>50% tax exemption</strong> on your donation amount under section 80G of the Income Tax Act.</p>
+                </div>
+                <div class="info-card" data-card-id="tax-2">
+                    <h3>For Foreign & US Nationals</h3>
+                    <p>Donors from the United States of America who wish to support organ donation programs in India can make contributions that are tax-deductible under the terms of section 501(c)(3) of the Internal Revenue Service Code. Our foundation is also an approved recipient of foreign contributions under the Foreign Contribution Regulation (FCRA) Act, 1976.</p>
+                </div>
+                <div class="info-card" data-card-id="tax-3">
+                    <h3>For Corporate Organizations</h3>
+                    <p>We work to build a common understanding of Corporate Social Responsibility (CSR) based on global practices and provisions of the Indian Companies Act, 2013. We guide organizations in strategizing, planning, executing, and monitoring their CSR activities to help more patients in need.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2 class="section-title animated-section">Patient Resources</h2>
+            <div class="resource-grid-container">
+                <div class="resource-grid">
+                    <div class="resource-card" data-card-id="resource-1">
+                        <a href="news-events.html">
+                            <i class="fas fa-book-reader"></i>
+                            <h3>Medical Information</h3>
+                            <p>Access our library of trusted articles and guides on kidney health, diet, and post-transplant recovery.</p>
+                            <span>Explore Now <i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="resource-card" data-card-id="resource-2">
+                        <a href="contact.html">
+                            <i class="fas fa-users"></i>
+                            <h3>Support Groups</h3>
+                            <p>Connect with a compassionate community of patients and families who understand your journey. Share your story and find strength.</p>
+                            <span>Join a Group <i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="resource-card" data-card-id="resource-3">
+                        <a href="contact.html">
+                            <i class="fas fa-comments"></i>
+                            <h3>Online Forums</h3>
+                            <p>Engage with our moderated online forums to ask questions, get advice, and connect with a broader support network.</p>
+                            <span>Visit Forums <i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="call-to-action">
+            <h2>Need Support? We Are Here for You.</h2>
+            <p>Our team is available 24/7 to answer your questions and provide the support you need. Your journey to recovery is our mission.</p>
+            <a href="contact.html" class="cta-button">Contact Our Patient Support Team</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 4-211/159/A/1, Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about-us.html">About Us</a>
+                    <a href="our-work.html">Success Stories</a>
+                    <a href="patient-support.html">Patient Support</a>
+                    <a href="get-involved.html">Get Involved</a>
+                    <a href="news-events.html">News & Events</a>
+                    <a href="annual-reports.html">Reports & Books</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/18bdMJnMz5/" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@cheyuthafoundationfororgan4570?feature=shared" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/cfotindia" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu Toggle Logic ---
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+            
+            if (mobileMenu && mobileMenuContainer) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenuContainer.classList.toggle('show');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+            
+            // Function to handle smooth scrolling
+            function smoothScroll(event) {
+                // Find the closest parent link to ensure the href is always correct
+                const link = event.target.closest('a');
+                if (!link) return;
+
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId.startsWith('#')) {
+                    event.preventDefault(); // Prevent default if it's an internal anchor
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const offsetPosition = targetElement.offsetTop - headerHeight - 20; // Added 20px padding
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }
+            }
+
+            // Add click listeners to all navigation and tab buttons
+            const navLinks = document.querySelectorAll('#nav-menu a, #mobile-nav-menu a, .page-tab-button');
+            navLinks.forEach(link => {
+                link.addEventListener('click', smoothScroll);
+            });
+
+            // --- Intersection Observer for Animations and Tab Highlighting ---
+            const animatedElements = document.querySelectorAll('.animated-section, .service-list-item, .resource-card, .info-card');
+            const sections = document.querySelectorAll('section.info-section, section#resources, section#call-to-action');
+            const tabButtons = document.querySelectorAll('.page-tab-button');
+
+            // Observer for fade-in animations
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            animatedElements.forEach(element => {
+                appearOnScroll.observe(element);
+            });
+
+            // Observer for active tab highlighting
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const tabId = entry.target.id;
+                        // Remove active class from all tabs
+                        tabButtons.forEach(button => button.classList.remove('active'));
+                        // Add active class to the corresponding tab
+                        const correspondingTab = document.querySelector(`a[href="#${tabId}"]`);
+                        if (correspondingTab) {
+                            correspondingTab.classList.add('active');
+                        }
+                    }
+                });
+            }, { rootMargin: '0px 0px -50% 0px' });
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Adjust mobile menu position based on header height
+            function adjustMobileMenuPosition() {
+                const headerHeight = header.offsetHeight;
+                mobileMenuContainer.style.top = `${headerHeight}px`;
+            }
+
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+        });
+    </script>
+</body>
+</html>

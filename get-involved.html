@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved | Cheyutha Foundation</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+    <style>
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f1e7;
+            overflow-x: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #b8ebe1;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Container for the logo and name */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            height: 70px;
+            max-width: 100%;
+        }
+
+        .header-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .header-name h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        /* Desktop Header Actions (formerly nav-wrapper) */
+        .header-desktop-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            white-space: nowrap;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        /* Highlight the active link for the Get Involved page */
+        nav ul li a[href="get-involved.html"] {
+            color: #e67e22;
+            border-bottom: 3px solid #e67e22;
+        }
+
+        /* Mobile Header Actions */
+        .header-mobile-actions {
+            display: none; /* Hidden by default on desktop */
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .donate-button {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+
+        .header-mobile-actions .donate-button {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            margin-left: 0;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .donate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+
+        .donate-button:hover::after {
+            transform: scale(150, 150) translate(-50%);
+            opacity: 1;
+        }
+
+        /* Mobile menu container that is hidden by default */
+        .mobile-menu-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: #b8ebe1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            z-index: 150;
+        }
+
+        .mobile-menu-container.show {
+            display: flex;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(230, 126, 34, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); }
+        }
+
+        @keyframes pastelBorderMove {
+            0%, 100% { background-position: 0% 100% }
+            50% { background-position: 100% 0%; }
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes qrGlow {
+            0% {
+                box-shadow: 0 0 5px rgba(102, 193, 240, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(102, 193, 240, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(102, 193, 240, 0.4);
+            }
+        }
+        
+        /* Styles for 'Get Involved' Page */
+        .get-involved-hero {
+            background: linear-gradient(135deg, rgba(184, 235, 225, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%), url('');
+            background-size: cover;
+            background-position: center;
+            padding: 8rem 2rem;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .get-involved-hero h1 {
+            font-size: 3.5rem;
+            color: #003366;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .get-involved-hero p {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+            animation: slideInUp 1s ease-out 0.2s backwards;
+            text-align: justify;
+        }
+
+        /* UPDATED: Flexbox layout for horizontal cards */
+        .involvement-sections {
+            padding: 5rem 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+            margin: 0 auto;
+            padding-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        /* NEW: Scrollbar styling for a cleaner look */
+        .involvement-sections::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .involvement-sections::-webkit-scrollbar-thumb {
+            background-color: #b8ebe1;
+            border-radius: 4px;
+        }
+
+        .involvement-sections::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* NEW CARD STYLES from 'Our Programs' */
+        .involvement-card {
+            background: rgba(255, 255, 255, 0.82);
+            border-radius: 20px;
+            padding: 2.3rem 1.6rem 2.1rem 1.6rem;
+            text-align: center;
+            box-shadow: 0 4px 18px 0 rgba(160, 195, 255, 0.08);
+            border: 2.5px solid transparent;
+            position: relative;
+            overflow: hidden;
+            background-clip: padding-box;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all .6s ease;
+            flex-shrink: 0;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .involvement-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* UPDATED: New light and compassionate card color gradients */
+        .involvement-card::before,
+        .online-payment-form::before,
+        .qr-payment-container::before,
+        .bank-payment-container::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 20px;
+            z-index: -1;
+            background-size: 400% 400%;
+            animation: pastelBorderMove 8s ease infinite;
+        }
+
+        .involvement-card:nth-child(1)::before {
+            background: linear-gradient(135deg, #c8e6f0 0%, #fce4e1 60%, #ffe0b2 100%);
+        }
+
+        .involvement-card:nth-child(2)::before {
+            background: linear-gradient(135deg, #e6e1f0 0%, #e1f0f0 60%, #c8e6f0 100%);
+        }
+
+        .involvement-card:nth-child(3)::before {
+            background: linear-gradient(135deg, #e1f9e6 0%, #f0e9c8 60%, #fff4e1 100%);
+        }
+
+        .involvement-card:nth-child(4)::before {
+            background: linear-gradient(135deg, #f5e1f0 0%, #f0e1f9 50%, #e6e1f0 100%);
+        }
+
+        /* NEW: Apply a specific gradient to the online payment form's border effect */
+        .online-payment-form::before {
+            background: linear-gradient(135deg, #e1f9e6 0%, #f0e9c8 60%, #fff4e1 100%);
+        }
+
+        /* NEW: Apply a specific gradient to the QR payment container's border effect */
+        .qr-payment-container::before {
+            background: linear-gradient(135deg, #e6e1f0 0%, #e1f0f0 60%, #c8e6f0 100%);
+        }
+
+        /* NEW: Added a new gradient for the bank payment container */
+        .bank-payment-container::before {
+            background: linear-gradient(135deg, #d4f0f0 0%, #e1e9f0 60%, #e8f9e1 100%);
+        }
+
+        .involvement-card:hover {
+            transform: translateY(-10px) scale(1.035);
+            box-shadow: 0 10px 28px rgba(120, 170, 255, 0.15);
+        }
+
+        /* UPDATED: New icon color gradient */
+        .involvement-card i {
+            font-size: 2.8rem;
+            margin-bottom: 1.1rem;
+            background: linear-gradient(110deg, #66c1f0 35%, #f066a3 66%, #ffa38b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iconFloat 3.2s infinite;
+        }
+
+        .involvement-card h2 {
+            font-size: 1.2rem;
+            margin-bottom: .7rem;
+            font-weight: 700;
+            color: #476d88;
+        }
+
+        .involvement-card p {
+            font-size: 1rem;
+            color: #587082;
+            line-height: 1.56;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+        }
+
+        .involvement-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .involvement-card li {
+            font-size: 1rem;
+            color: #476d88;
+            margin-bottom: 0.5rem;
+        }
+
+        .involvement-card li strong {
+            display: block;
+            color: #2c3e50;
+        }
+
+        /* NEW: Styles for the social media list */
+        .social-links-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links-list li a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links-list li a i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+            background: none;
+            -webkit-text-fill-color: inherit;
+        }
+
+        .social-links-list li a:hover {
+            transform: translateY(-5px);
+        }
+
+        .social-links-list li a:hover i {
+            transform: scale(1.1);
+        }
+
+        .social-links-list li a span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #476d88;
+            text-align: center;
+        }
+
+        .social-links-list li a .fa-facebook:hover { color: #3b5998; }
+        .social-links-list li a .fa-twitter:hover { color: #00acee; }
+        .social-links-list li a .fa-instagram:hover { color: #c13584; }
+        .social-links-list li a .fa-youtube:hover { color: #ff0000; }
+
+        /* UPDATED: Button positioning */
+        .involvement-card .cta-button {
+            margin-top: auto;
+            display: inline-block;
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .involvement-card .cta-button:hover {
+            background: linear-gradient(45deg, #d35400, #e67e22);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        /* Donation Section Styles */
+        #donation-section {
+            padding: 5rem 2rem;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        #donation-form-section {
+            padding: 0;
+            background: none;
+            text-align: center;
+        }
+
+        #donation-form-section h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        #donation-form-section p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            text-align: justify;
+        }
+
+        /* UPDATED: Tabs container styles for centering and consistent spacing */
+        .payment-options-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 100%;
+        }
+
+        /* Updated tab button styling with new colors */
+        .payment-toggle-btn {
+            background: transparent;
+            padding: 1rem 2rem;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #587082;
+            transition: all 0.3s ease;
+        }
+
+        /* UPDATED: Tab active/hover colors */
+        .payment-toggle-btn.active, .payment-toggle-btn:hover {
+            color: #66c1f0;
+            border-bottom: 3px solid #66c1f0;
+            transform: translateY(0);
+            background: none;
+            box-shadow: none;
+        }
+
+        .payment-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .payment-container.active {
+            display: block;
+        }
+
+        /* QR Code & UPI Section */
+        /* UPDATED: Added properties for animated border effect */
+        .qr-payment-container {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background-clip: padding-box;
+            border: 2.5px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .qr-payment-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .qr-payment-container .qr-code-image {
+            width: 250px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: qrGlow 2s infinite ease-in-out;
+        }
+
+        /* FIX: Consolidated and corrected the styling for the UPI and PhonePe info */
+        .qr-payment-container .upi-info {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .qr-payment-container .upi-info span {
+            font-weight: 800;
+            color: #e67e22;
+        }
+
+        /* NEW: Bank Transfer Container */
+        .bank-payment-container {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            background-clip: padding-box;
+            border: 2.5px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+            text-align: left;
+        }
+
+        .bank-payment-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bank-payment-container p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .bank-payment-container p strong {
+            display: block;
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+
+        .bank-payment-container p span {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+            width: 300px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+
+        .footer-section .footer-links a {
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: row; /* Keep the logo and menu on one line */
+                align-items: center;
+                justify-content: space-between;
+            }
+            .header-brand {
+                justify-content: flex-start;
+                gap: 0.5rem;
+            }
+            .logo-image {
+                height: 50px;
+            }
+            .header-name h1 {
+                font-size: 1.5rem;
+                text-align: left;
+            }
+            .header-desktop-actions {
+                display: none; /* Hide desktop nav on mobile */
+            }
+            .header-mobile-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .menu-toggle {
+                display: block;
+                order: 1;
+                margin-left: auto;
+            }
+            /* The mobile menu container itself */
+            .mobile-menu-container {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #b8ebe1;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                text-align: center;
+                position: fixed;
+                left: 0;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+                z-index: 150;
+            }
+
+            .mobile-menu-container.show {
+                display: flex;
+            }
+
+            /* Styles for the links inside the mobile menu */
+            .mobile-menu-container nav ul {
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                text-align: center;
+            }
+            .mobile-menu-container nav ul li {
+                margin: 0;
+                padding: 0;
+            }
+            .mobile-menu-container nav ul li a {
+                display: inline-block;
+                padding: 15px 20px;
+                width: auto;
+                border-bottom: 3px solid transparent;
+            }
+            .mobile-menu-container nav ul li a:hover {
+                border-bottom: none;
+            }
+            /* Apply the orange line only to the active link */
+            .mobile-menu-container nav ul li a[href="get-involved.html"] {
+                color: #e67e22;
+                border-bottom: 3px solid #e67e22;
+            }
+            .donate-button {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.75rem;
+                margin-left: 0;
+            }
+            
+            .get-involved-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .get-involved-hero p {
+                font-size: 1rem;
+            }
+            
+            .payment-options-toggle {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .payment-toggle-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* FIX: Adjusted mobile slider styles to move buttons outside of the cards */
+            .involvement-sections-wrapper {
+                position: relative;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 2rem; /* Add padding to the wrapper for the buttons to sit in */
+            }
+
+            .involvement-sections {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: scroll;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 3rem 0rem; /* Removed padding here to allow buttons to be outside */
+                justify-content: flex-start;
+                gap: 1.5rem;
+            }
+
+            .involvement-card {
+                scroll-snap-align: center;
+                width: 85vw;
+                flex-shrink: 0;
+                padding: 2rem;
+            }
+
+            .slider-nav-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.9);
+                border: 2px solid #66c1f0;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                z-index: 10;
+            }
+
+            .slider-nav-btn.left {
+                left: 0.5rem; /* Positioned inside the new wrapper padding */
+            }
+
+            .slider-nav-btn.right {
+                right: 0.5rem; /* Positioned inside the new wrapper padding */
+            }
+
+            .slider-nav-btn:hover {
+                background-color: #66c1f0;
+                transform: translateY(-50%) scale(1.1);
+            }
+
+            .slider-nav-btn i {
+                font-size: 1.2rem;
+                color: #66c1f0;
+                transition: color 0.3s ease;
+            }
+            
+            .slider-nav-btn:hover i {
+                color: white;
+            }
+
+            .slider-nav-btn.disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            
+            footer {
+                padding: 3rem 1rem 1rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                /* FIX: Centering the content horizontally using flexbox */
+                text-align: center;
+            }
+
+            /* FIX: Added flexbox to this section to center its children on mobile */
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-brand">
+            <!-- Updated logo with fallback placeholder -->
+            <img src="Logos and Helping Hand/logo_small.png" onerror="this.onerror=null;this.src='https://placehold.co/100x70/b8ebe1/e67e22?text=CFOT';" alt="CFOT India Logo" class="logo-image">
+            <div class="header-name">
+                <h1>Cheyutha</h1>
+                <h1>Foundation</h1>
+            </div>
+        </div>
+
+        <!-- Desktop navigation container -->
+        <div class="header-desktop-actions">
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+        </div>
+
+        <!-- Mobile-specific header actions -->
+        <div class="header-mobile-actions">
+            <a href="get-involved.html#donation-section" class="donate-button"><i class="fas fa-hand-holding-heart mr-2"></i>Donate Now</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile menu container, outside of the header -->
+    <div class="mobile-menu-container">
+        <nav>
+            <ul id="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-work.html">Success Stories</a></li>
+                <li><a href="patient-support.html">Patient Support</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+                <li><a href="news-events.html">News & Events</a></li>
+                <li><a href="annual-reports.html">Reports & Books</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <section class="get-involved-hero">
+            <h1>Make a Difference, One Life at a Time</h1>
+            <p>Your support is the lifeblood of our mission. Join the Cheyutha family and help us empower patients and their families on their journey to wellness.</p>
+        </section>
+
+        <!-- Wrapper for mobile slider to properly position nav buttons -->
+        <div class="involvement-sections-wrapper">
+            <!-- Main section for mobile slider and desktop grid -->
+            <section class="involvement-sections" id="involvement-cards-container">
+                <!-- REORDERED: Donate card is now first -->
+                <div class="involvement-card" data-animate>
+                    <i class="fas fa-donate"></i>
+                    <h2>Donate</h2>
+                    <p>Your financial contribution directly funds life-saving treatments, subsidized medicines, and patient care kits. Every rupee you donate helps a patient receive the care they desperately need. Make a one-time gift or become a recurring donor today.</p>
+                    <a href="#donation-section" class="cta-button">Donate Now</a>
+                </div>
+
+                <div class="involvement-card" data-animate>
+                    <i class="fas fa-hands-helping"></i>
+                    <h2>Volunteer</h2>
+                    <p>Become a beacon of hope. Our volunteers provide critical on-the-ground support, from patient counseling to organizing awareness campaigns. Whether you have a few hours or a few days, your time and compassion can change a life.</p>
+                    <div class="contact-details" style="margin-top: 1rem; text-align: left;">
+                        <h3 style="font-size: 1.1rem; color: #476d88;">Volunteer Contact:</h3>
+                        <ul style="list-style-type: none; padding: 0;">
+                            <li><strong>Mr. Jagadeeshwar Reddy</strong></li>
+                            <li><strong>Mr. Bhagavan Reddy</strong></li>
+                        </ul>
+                    </div>
+                    <a href="#volunteer-form" class="cta-button">Apply to Volunteer</a>
+                </div>
+
+                <div class="involvement-card" data-animate>
+                    <i class="fas fa-bullhorn"></i>
+                    <h2>Fundraise</h2>
+                    <p>Be a champion for change. Host your own fundraising event—a marathon, a bake sale, or a community drive—and rally your friends, family, and colleagues to support our cause. We'll provide you with all the resources you need to succeed!</p>
+                    <a href="#fundraise-info" class="cta-button">Start a Fundraiser</a>
+                </div>
+
+                <div class="involvement-card" data-animate>
+                    <i class="fas fa-share-alt"></i>
+                    <h2>Spread the Word</h2>
+                    <p>Awareness is the first step toward change. Help us reach a wider audience by sharing our mission and stories. Follow us and tell your network about the critical work we do. Your voice is a powerful tool!</p>
+                    <ul class="social-links-list">
+                        <li>
+                            <a href="https://www.facebook.com/cfotindia/" target="_blank" aria-label="Follow us on Facebook">
+                                <i class="fab fa-facebook"></i>
+                                <span>Facebook</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://x.com/cfotindia" target="_blank" aria-label="Follow us on Twitter">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/cheyuthafoundation/" target="_blank" aria-label="Follow us on Instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCf5t0CP3B7B380GFviLz7MQ" target="_blank" aria-label="Subscribe on YouTube">
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Slider navigation buttons -->
+            <button class="slider-nav-btn left" id="prev-card-btn" aria-label="Previous Card">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav-btn right" id="next-card-btn" aria-label="Next Card">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <section id="donation-section">
+            <div id="donation-form-section">
+                <h2>Give the Gift of Life</h2>
+                <p>Your generous donation makes a tangible difference in the lives of kidney patients. Choose your preferred method to contribute securely.</p>
+                
+                <!-- Updated Payment Options Toggle -->
+                <div class="payment-options-toggle">
+                    <button class="payment-toggle-btn active" data-target="qr-payment">Scan QR Code</button>
+                    <button class="payment-toggle-btn" data-target="bank-payment">Bank Transfer</button>
+                </div>
+
+                <!-- Updated QR Code & UPI Details Container -->
+                <div id="qr-payment" class="payment-container active">
+                    <div class="qr-payment-container visible">
+                        <p style="text-align: justify;">Scan the QR code below using any UPI app (PhonePe, Google Pay, Paytm, etc.) or use our UPI ID to donate securely.</p>
+                        <img src="Qr Code/qr code.png" onerror="this.onerror=null;this.src='https://placehold.co/250x250/e6e1f0/2c3e50?text=QR+Code+Placeholder';" alt="QR Code for Donation" class="qr-code-image">
+                        <p class="upi-info" style="text-align: center;"><strong>UPI ID:</strong> cheyuthaorgan@ybl</p>
+                        <p class="upi-info" style="font-weight: 400; font-size: 1rem; text-align: center;"><strong>Google Pay or Phone Pe No:</strong> +91 8328605200</p>
+                        <p style="margin-top: 2rem; font-size: 0.9rem; color: #777; text-align: justify;">All contributions are exempt under section 80-G of the Income Tax Act 1961.</p>
+                    </div>
+                </div>
+
+                <!-- New Bank Transfer Container -->
+                <div id="bank-payment" class="payment-container">
+                    <div class="bank-payment-container visible">
+                        <p>You can make a direct bank transfer using the details below. Please include your full name in the transaction description.</p>
+                        <p>
+                            <strong>Account Name:</strong>
+                            <span>Cheyutha Foundation for Organ Transplants</span>
+                        </p>
+                        <p>
+                            <strong>Bank Name:</strong>
+                            <span>HDFC BANK</span>
+                        </p>
+                        <p>
+                            <strong>Account Number:</strong>
+                            <span>502 000 5380 7650</span>
+                        </p>
+                        <p>
+                            <strong>IFSC Code:</strong>
+                            <span>HDFC0002019</span>
+                        </p>
+                        <p>
+                            <strong>Branch:</strong>
+                            <span>Kondapur</span>
+                        </p>
+                        <p style="margin-top: 2rem; font-size: 0.9rem; color: #777;">All contributions are exempt under section 80-G of the Income Tax Act 1961.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- Placeholder Sections for Volunteer & Fundraise -->
+        <section id="volunteer-form" class="page-section" style="display:none;"></section>
+        <section id="fundraise-info" class="page-section" style="display:none;"></section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 4-211/159/A/1,
+Northgate Avenue, Opp. Infant Jesus International school, Shamshabad, Rangareddy district -501218</p>
+                <p><i class="fas fa-phone"></i> +91 8328605200</p>
+                <p><i class="fas fa-envelope"></i> cheyuthafoundation.organ@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="space-y-1" style="list-style-type: none;">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="our-work.html">Success Stories</a></li>
+                    <li><a href="patient-support.html">Patient Support</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="news-events.html">News & Events</a></li>
+                    <li><a href="annual-reports.html">Reports & Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/18bdMJnMz5/" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cfotindia" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@cheyuthafoundationfororgan4570?feature=shared" target="_blank" class="text-3xl text-sky-600 hover:text-rose-600 transition-colors duration-300 transform"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/cfotindia" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Cheyutha Foundation for Organ Transplants. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu Toggle Logic ---
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+            const mobileNavLinks = document.querySelectorAll('.mobile-menu-container a');
+            const header = document.querySelector('header');
+            
+            if (mobileMenu && mobileMenuContainer) {
+                mobileMenu.addEventListener('click', function() {
+                    mobileMenuContainer.classList.toggle('show');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+                
+                // Close menu when a link is clicked
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenuContainer.classList.remove('show');
+                        mobileMenu.querySelector('i').classList.remove('fa-times');
+                        mobileMenu.querySelector('i').classList.add('fa-bars');
+                    });
+                });
+            }
+
+            // Function to adjust mobile menu position
+            function adjustMobileMenuPosition() {
+                if (window.innerWidth <= 768) {
+                    const headerHeight = header.offsetHeight;
+                    mobileMenuContainer.style.top = `${headerHeight}px`;
+                } else {
+                    mobileMenuContainer.style.top = '0'; // Reset for desktop view
+                }
+            }
+
+            adjustMobileMenuPosition();
+            window.addEventListener('resize', adjustMobileMenuPosition);
+
+            // Intersection Observer for staggered animations of involvement cards
+            const animatedCards = document.querySelectorAll('.involvement-card');
+            
+            const appearOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = Array.from(animatedCards).indexOf(entry.target) * 150;
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }, delay);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            animatedCards.forEach(element => {
+                appearOnScroll.observe(element);
+            });
+
+            // Intersection Observer to make payment forms appear instantly
+            const paymentContainersToAnimate = document.querySelectorAll('.qr-payment-container, .bank-payment-container');
+
+            const paymentObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            paymentContainersToAnimate.forEach(element => {
+                paymentObserver.observe(element);
+            });
+
+            // Payment method toggle
+            const paymentToggleBtns = document.querySelectorAll('.payment-toggle-btn');
+            const paymentContainers = document.querySelectorAll('.payment-container');
+            paymentToggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    paymentToggleBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('data-target');
+                    paymentContainers.forEach(container => {
+                        if (container.id === targetId) {
+                            container.classList.add('active');
+                        } else {
+                            container.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // New JavaScript for mobile slider
+            const sliderContainer = document.getElementById('involvement-cards-container');
+            const prevBtn = document.getElementById('prev-card-btn');
+            const nextBtn = document.getElementById('next-card-btn');
+            const cards = sliderContainer.querySelectorAll('.involvement-card');
+
+            if (sliderContainer && prevBtn && nextBtn) {
+                function showSliderNav() {
+                    prevBtn.style.display = 'flex';
+                    nextBtn.style.display = 'flex';
+                }
+
+                function hideSliderNav() {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+
+                function updateButtonStates() {
+                    // Using a small tolerance for floating point scroll values
+                    const scrollLeft = Math.round(sliderContainer.scrollLeft);
+                    const maxScrollLeft = Math.round(sliderContainer.scrollWidth - sliderContainer.clientWidth);
+                    
+                    if (scrollLeft <= 5) {
+                        prevBtn.classList.add('disabled');
+                    } else {
+                        prevBtn.classList.remove('disabled');
+                    }
+                    if (scrollLeft >= maxScrollLeft - 5) {
+                        nextBtn.classList.add('disabled');
+                    } else {
+                        nextBtn.classList.remove('disabled');
+                    }
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    sliderContainer.scrollBy({
+                        left: -sliderContainer.clientWidth,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(updateButtonStates, 500);
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    sliderContainer.scrollBy({
+                        left: sliderContainer.clientWidth,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(updateButtonStates, 500);
+                });
+
+                sliderContainer.addEventListener('scroll', updateButtonStates);
+
+                function handleResize() {
+                    if (window.innerWidth <= 768) {
+                        showSliderNav();
+                        updateButtonStates();
+                    } else {
+                        hideSliderNav();
+                    }
+                }
+
+                window.addEventListener('resize', handleResize);
+                handleResize(); // Initial call to set up the buttons correctly on load
+            }
+        });
+    </script>
+</body>
+</html>
