@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -350,6 +348,15 @@
         }
 
         .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
@@ -969,7 +976,7 @@
                     <span class="stat-label">Patients on Dialysis Assisted</span>
                 </div>
                 <div class="stat-item stat-animated-item" style="background: linear-gradient(to right, #e0f7fa, #fffde4, #fddbff);">
-                    <span class="stat-number" data-count="10+">0</span>
+                    <span class="stat-number" data-count="10">0</span>
                     <span class="stat-label">Years of Service</span>
                 </div>
                 <div class="stat-item stat-animated-item" style="background: linear-gradient(to right, #fdf6e3, #e5f5ec, #ffe0ec);">
@@ -991,16 +998,16 @@
             
            <div class="video-grid">
     <div class="video-container">
-        <iframe src="Videos/1.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 1"></iframe>
+        <video src="Videos/1.mp4" controls preload="metadata" title="Cheyutha Foundation Video 1"></video>
     </div>
     <div class="video-container">
-        <iframe src="Videos/2.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 2"></iframe>
+        <video src="Videos/2.mp4" controls preload="metadata" title="Cheyutha Foundation Video 2"></video>
     </div>
     <div class="video-container">
-        <iframe src="Videos/3.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 3"></iframe>
+        <video src="Videos/3.mp4" controls preload="metadata" title="Cheyutha Foundation Video 3"></video>
     </div>
     <div class="video-container">
-        <iframe src="Videos/4.mp4?autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Cheyutha Foundation Video 4"></iframe>
+        <video src="Videos/4.mp4" controls preload="metadata" title="Cheyutha Foundation Video 4"></video>
     </div>
 </div>
             
